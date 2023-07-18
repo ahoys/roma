@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, Index, ManyToOne } from 'typeorm';
 import { Model, defaultStringValueColumn } from './model';
 import { Requirement } from './model.Requirement';
 import { User } from './model.User';
@@ -7,6 +7,7 @@ import { RequirementCommentDTO } from '../../shared/dtos/dto.RequirementCommentD
 @Entity()
 export class RequirementComment extends Model implements RequirementCommentDTO {
   @Column(defaultStringValueColumn)
+  @Index({ fulltext: true })
   value: string;
 
   @ManyToOne(() => Requirement, (model) => model.comments, {

@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, Index, ManyToOne } from 'typeorm';
 import { Model, defaultStringValueColumn } from './model';
 import { User } from './model.User';
 import { AssignmentCommentDTO } from '../../shared/dtos/dto.AssignmentCommentDTO';
@@ -7,6 +7,7 @@ import { Assignment } from './model.Assignment';
 @Entity()
 export class AssignmentComment extends Model implements AssignmentCommentDTO {
   @Column(defaultStringValueColumn)
+  @Index({ fulltext: true })
   value: string;
 
   @ManyToOne(() => Assignment, (model) => model.comments, {

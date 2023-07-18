@@ -35,7 +35,6 @@ export const defaultNameColumn: ColumnOptions = {
 
 export const defaultStringValueColumn: ColumnOptions = {
   type: 'text',
-  length: 10240,
   default: '',
   nullable: false,
 };
