@@ -113,6 +113,12 @@ print(config);
       assignmentResolvers(app, ds);
       assignmentCommentResolvers(app, ds);
       errorResolver(app); // Should come last.
+      app.use(
+        config.publicPath,
+        express.static(path.join(__dirname, 'public'), {
+          maxAge: '90d',
+        })
+      );
       if (config.isDevelopment) {
         await createMockupTables();
         const compiler = webpack([
@@ -136,12 +142,6 @@ print(config);
             typeof nonce === 'string' ? `'nonce-${nonce}'` : "'unsafe-inline'",
           ],
         };
-        app.use(
-          config.publicPath,
-          express.static(path.join(__dirname, 'public'), {
-            maxAge: '90d',
-          })
-        );
         app.use(
           helmet({
             contentSecurityPolicy: {
