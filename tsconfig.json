@@ -1,0 +1,49 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "es2015",
+    "module": "commonjs",
+    "jsx": "react",
+    "outDir": "dist",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "removeComments": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "emitDecoratorMetadata": true,
+    "types": [
+      "node",
+      "react",
+      "jest"
+    ],
+    "paths": {
+      "config": ["src/client/client.config.ts"],
+      "types": ["src/types.ts"],
+      "theme": ["src/client/theme.ts"],
+      "components/*": ["src/client/components/*"],
+      "hooks/*": ["src/client/hooks/*"],
+      "reducers/*": ["src/client/reducers/*"],
+      "strings/*": ["src/client/strings/*"],
+      "utilities/*": ["src/client/utilities/*"],
+      "dtos/*": ["src/shared/dtos/*"],
+    },
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
+  "include": [
+    "./src/client/**/*.tsx",
+    "./src/**/*.ts",
+    "./src/**/*.d.ts",
+    "./webpack/**/*",
+    "stats-webpack-plugin.d.ts",
+  ],
+  "exclude": [
+    "node_modules",
+    "**/__tests__/*"
+  ]
+}
