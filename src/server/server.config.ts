@@ -34,7 +34,6 @@ const production = {
   oauth: {
     ...clientConfig.oauth,
     clientSecret: process.env.OAUTH_CLIENTSECRET || '',
-    masterId: process.env.OAUTH_MASTERID || '',
   },
   ssl: {
     crtPath: process.env.SSL_CRTPATH,
