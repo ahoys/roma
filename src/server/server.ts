@@ -43,10 +43,7 @@ import { requirementResolvers } from './resolvers/resolvers.Requirement';
 import { requirementCommentResolvers } from './resolvers/resolvers.RequirementComment';
 import { assignmentResolvers } from './resolvers/resolvers.Assignment';
 import { assignmentCommentResolvers } from './resolvers/resolvers.AssignmentComment';
-import {
-  createMockupTables,
-  generateMasterUser,
-} from './utilities/utilities.db';
+import { createMockupTables } from './utilities/utilities.db';
 import {
   cookieResolvers,
   defaultCookieOptions,
@@ -81,7 +78,6 @@ print(config);
   })
     .initialize()
     .then(async (ds) => {
-      await generateMasterUser();
       const nonce = crypto.randomBytes(16).toString('base64');
       const app: express.Application = express();
       app.use(cors());

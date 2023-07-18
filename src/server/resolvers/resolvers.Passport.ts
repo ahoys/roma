@@ -43,13 +43,20 @@ export const resolversPassport = (app: Application) => {
           return cb(null, dev);
         } else {
           // No access, generate a new user for validation.
-          const noaccess = new User();
-          noaccess.name = displayName;
-          noaccess.oauthId = id;
-          noaccess.admin = false;
-          await User.save(noaccess);
-          print(`Registered a new user: ${noaccess.name}`);
-          return cb(null, noaccess);
+          const master = await User.findOneBy({ admin: true });
+          const thisUser = new User();
+          thisUser.name = displayName;
+          thisUser.oauthId = id;
+          if (master) {
+            thisUser.admin = false;
+          } else {
+            // Master user does not exist, so
+            // this user will be the master.
+            thisUser.admin = true;
+          }
+          await User.save(thisUser);
+          print(`Registered a new user: ${thisUser.name}`);
+          return cb(null, thisUser);
         }
       }
     )

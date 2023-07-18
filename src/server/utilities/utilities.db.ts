@@ -11,21 +11,6 @@ import { Assignment } from '../models/model.Assignment';
 import { AssignmentComment } from '../models/model.AssignmentComment';
 
 /**
- * Generates the master user.
- */
-export const generateMasterUser = async () => {
-  const exists = await User.findOneBy({ oauthId: config.oauth.masterId });
-  if (!exists) {
-    await User.save({
-      oauthId: config.oauth.masterId,
-      name: 'Master User',
-      admin: true,
-      hourPrice: 0,
-    });
-  }
-};
-
-/**
  * Returns a random integer between 0 and max.
  * @param max The maximum value of the random integer.
  * @returns A random integer between 0 and max.
