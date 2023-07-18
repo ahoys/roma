@@ -1,4 +1,4 @@
-import { Column, Entity, Index, ManyToOne, OneToMany, Unique } from 'typeorm';
+import { Column, Entity, Index, ManyToOne, OneToMany } from 'typeorm';
 import { Model, defaultBooleanColumn, defaultStringValueColumn } from './model';
 import { RequirementComment } from './model.RequirementComment';
 import { Feature } from './model.Feature';
@@ -6,7 +6,6 @@ import { ModelDTO } from '../../shared/dtos/dto.ModelDTO';
 import { RequirementDTO } from 'dtos/dto.RequirementDTO';
 
 @Entity()
-@Unique(['value', 'feature'])
 export class Requirement extends Model implements ModelDTO {
   @Column(defaultStringValueColumn)
   @Index({ fulltext: true })
