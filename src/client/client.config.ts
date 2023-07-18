@@ -1,13 +1,14 @@
 import { getBasename, getPublicPath } from 'utilities/utilities.configs';
 
 const publicPath = getPublicPath(process.env.PUBLICPATH);
+const api = publicPath + 'api/';
 
 const production = {
   isDevelopment: false,
   isBrowser:
     process.env.ISBROWSER !== undefined && typeof window !== 'undefined',
   publicPath,
-  api: process.env.API || '/api/',
+  api,
   basename: getBasename(publicPath),
   meta: {
     title: 'ROMA',
