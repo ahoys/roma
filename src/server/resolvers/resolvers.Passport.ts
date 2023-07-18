@@ -32,29 +32,15 @@ export const resolversPassport = (app: Application) => {
         if (user) {
           // Has access.
           return cb(null, user);
-        } else if (config.isDevelopment) {
-          // No access, but development mode so we'll give an access.
-          const dev = new User();
-          dev.name = displayName;
-          dev.oauthId = id;
-          dev.admin = true;
-          await User.save(dev);
-          print('Configurated the first admin automatically:', dev.name);
-          return cb(null, dev);
         } else {
           // No access, generate a new user for validation.
           const master = await User.findOneBy({ admin: true });
           const thisUser = new User();
           thisUser.name = displayName;
           thisUser.oauthId = id;
-          if (master) {
-            thisUser.admin = false;
-          } else {
-            // Master user does not exist, so
-            // this user will be the master.
-            thisUser.admin = true;
-          }
+          thisUser.admin = !master;
           await User.save(thisUser);
+          if (thisUser.admin) print('Master not found, created a new one.');
           print(`Registered a new user: ${thisUser.name}`);
           return cb(null, thisUser);
         }
