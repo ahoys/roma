@@ -20,7 +20,7 @@ export default {
   devtool: 'nosources-source-map',
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: 'rm.js',
+    filename: 'roma.js',
     trustedTypes: true,
   },
   module: {
