@@ -7,7 +7,7 @@
     "node": ">=19"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=development ts-node -r dotenv/config src/server/server.ts",
+    "start": "cross-env NODE_ENV=development ts-node -r dotenv/config src/server/server.ts dotenv_config_path=.dev.env",
     "build": "cross-env NODE_ENV=production webpack --progress --config webpack/webpack.prod.client.ts && cross-env webpack --progress --config webpack/webpack.prod.server.ts",
     "test": "cross-env NODE_ENV=test tsc --noEmit --skipLibCheck -p . && jest --passWithNoTests",
     "jest": "cross-env NODE_ENV=test jest --passWithNoTests --detectOpenHandles",
