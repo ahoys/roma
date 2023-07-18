@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "A guidance tool for software product family roadmaps.",
   "engines": {
-    "node": ">=19"
+    "node": ">=16"
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development ts-node -r dotenv/config src/server/server.ts dotenv_config_path=.dev.env",
