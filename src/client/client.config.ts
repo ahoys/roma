@@ -1,4 +1,4 @@
-import { getBasename, getPublicPath } from 'utilities/utilities.configs';
+import { getPublicPath } from 'utilities/utilities.configs';
 
 const publicPath = getPublicPath(process.env.PUBLICPATH);
 const api = publicPath + 'api/';
@@ -9,7 +9,6 @@ const production = {
     process.env.ISBROWSER !== undefined && typeof window !== 'undefined',
   publicPath,
   api,
-  basename: getBasename(publicPath),
   meta: {
     title: 'ROMA',
     description: 'Roadmap guidance tool.',

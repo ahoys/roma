@@ -14,14 +14,3 @@ export const getPublicPath = (rawPublicPath: string | undefined): string => {
   }
   return value;
 };
-
-/**
- * Basename is used in client routing.
- */
-export const getBasename = (rawPublicPath: string | undefined): string => {
-  let value = getPublicPath(rawPublicPath);
-  if (value.endsWith('/')) {
-    value = value.substring(0, value.length - 1);
-  }
-  return value;
-};

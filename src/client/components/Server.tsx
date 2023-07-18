@@ -56,7 +56,7 @@ export default ({ clientStats, nonce }: IServer) =>
       const client = ReactDOMServer.renderToString(
         sheet.collectStyles(
           <Provider store={store}>
-            <StaticRouter location={req.url} basename={config.basename}>
+            <StaticRouter location={req.url}>
               <App />
             </StaticRouter>
           </Provider>

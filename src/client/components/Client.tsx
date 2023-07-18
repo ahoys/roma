@@ -26,7 +26,7 @@ const container = document.getElementById('client');
 const root = createRoot(container!);
 root.render(
   <Provider store={store}>
-    <BrowserRouter basename={config.basename}>
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </Provider>
