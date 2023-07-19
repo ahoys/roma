@@ -90,6 +90,7 @@ export const clientPlugins = [
   new webpack.EnvironmentPlugin({
     NODE_ENV: null, // null means optional.
     PUBLICPATH: null,
+    API: null,
     OAUTH_OVERRIDEACCESS: null,
     OAUTH_CLIENTID: undefined, // undefined means mandatory.
     OAUTH_CALLBACKURL: undefined,

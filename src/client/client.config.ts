@@ -1,7 +1,9 @@
 import { getPublicPath } from 'utilities/utilities.configs';
 
 const publicPath = getPublicPath(process.env.PUBLICPATH);
-const api = publicPath + 'api/';
+const api = process.env.API
+  ? getPublicPath(process.env.API)
+  : publicPath + 'api/';
 
 const production = {
   isDevelopment: false,
