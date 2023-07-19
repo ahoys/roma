@@ -12,9 +12,6 @@ export const resolversPassport = (app: Application) => {
       secret: config.session.secret,
       resave: false,
       saveUninitialized: false,
-      cookie: {
-        secure: !config.isDevelopment,
-      },
     })
   );
   app.use(passport.initialize());
