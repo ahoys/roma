@@ -1,5 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import config from 'config';
+import produce from 'immer';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { TRootState } from '../store';
@@ -353,14 +354,18 @@ export const slice = createSlice({
       }>
     ) => {
       const { endpoint, fieldKey, value } = action.payload;
-      const target = state.merged[endpoint] || {};
-      target[fieldKey] = value;
-      state.merged[endpoint] = target;
-      const modified = state.modified[endpoint] ? state.modified[endpoint] : {};
-      if (modified) {
-        modified[fieldKey] = value;
-        state.modified[endpoint] = modified;
-      }
+      state.merged = produce(state.merged, (draftMerged) => {
+        const target = draftMerged[endpoint] || {};
+        target[fieldKey] = value;
+        draftMerged[endpoint] = target;
+      });
+      state.modified = produce(state.modified, (draftModified) => {
+        const modified = draftModified[endpoint] ? draftModified[endpoint] : {};
+        if (modified) {
+          modified[fieldKey] = value;
+        }
+        draftModified[endpoint] = modified;
+      });
     },
     /**
      * Resets modified/merged data to original.
