@@ -32,7 +32,9 @@ export const ProgressOverview = () => {
   const str = useStrings();
   const versionsData = useData<VersionDTO[]>('versions?archived=false', false);
   const features = (
-    versionsData.data?.filter((v) => v.features).map((v) => v.features) || []
+    (versionsData.data || [])
+      .filter((v) => v.features)
+      .map((v) => v.features) || []
   ).flat();
   /**
    * Returns total price of all assignments.
