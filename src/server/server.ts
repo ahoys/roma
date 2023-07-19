@@ -85,12 +85,12 @@ print(config);
       app.use(
         urlencoded({
           extended: true,
-          limit: '10mb',
+          limit: '1mb',
         })
       );
       app.use(
         json({
-          limit: '10mb',
+          limit: '1mb',
         })
       );
       if (config.isDevelopment) {
@@ -98,27 +98,6 @@ print(config);
           print(req.method + ' > ' + req.originalUrl);
           next();
         });
-      } else {
-        app.use(
-          config.publicPath,
-          express.static(path.join(__dirname, 'public'), {
-            maxAge: '365d',
-          })
-        );
-        const directives: { [key: string]: string[] } = {
-          'script-src': [
-            "'self'",
-            typeof nonce === 'string' ? `'nonce-${nonce}'` : "'unsafe-inline'",
-          ],
-        };
-        app.use(
-          helmet({
-            contentSecurityPolicy: {
-              useDefaults: true,
-              directives,
-            },
-          })
-        );
       }
       resolversPassport(app);
       resolversOauth(app);
@@ -150,11 +129,32 @@ print(config);
         );
         app.use(webpackHotServerMiddleware(compiler));
       } else {
-        // app.use(
-        //   csurf({
-        //     cookie: defaultCookieOptions,
-        //   })
-        // );
+        // Define CORS-rules here.
+        const directives: { [key: string]: string[] } = {
+          'script-src': [
+            "'self'",
+            typeof nonce === 'string' ? `'nonce-${nonce}'` : "'unsafe-inline'",
+          ],
+        };
+        app.use(
+          config.publicPath,
+          express.static(path.join(__dirname, 'public'), {
+            maxAge: '365d',
+          })
+        );
+        app.use(
+          helmet({
+            contentSecurityPolicy: {
+              useDefaults: true,
+              directives,
+            },
+          })
+        );
+        app.use(
+          csurf({
+            cookie: defaultCookieOptions,
+          })
+        );
         // In production we use pre-built stats.
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const clientStats = await import('../../dist/public/stats.json' as any);
