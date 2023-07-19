@@ -3,6 +3,7 @@ import path from 'path';
 import WebpackPwaManifest from 'webpack-pwa-manifest';
 import WorkboxPlugin from 'workbox-webpack-plugin';
 import StatsPlugin from 'stats-webpack-plugin';
+import CopyPlugin from 'copy-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import {
   extensions,
@@ -51,14 +52,17 @@ export default {
   plugins: [
     ...clientPlugins,
     new CleanWebpackPlugin(),
-    // new CopyPlugin({
-    //   patterns: [
-    //     {
-    //       from: `${path.resolve(__dirname, '../src/assets/favicon.ico')}`,
-    //       to: `${path.resolve(__dirname, '../dist/public/')}`,
-    //     },
-    //   ],
-    // }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: `${path.resolve(
+            __dirname,
+            '../src/client/assets/favicon.ico'
+          )}`,
+          to: `${path.resolve(__dirname, '../dist/public/')}`,
+        },
+      ],
+    }),
     new StatsPlugin('stats.json'),
     // PWA
     new WorkboxPlugin.InjectManifest({
@@ -77,18 +81,18 @@ export default {
       background_color: '#F20D0D',
       fingerprints: false,
       inject: false,
-      // icons: [
-      //   {
-      //     src: path.resolve(__dirname, '../src/assets/bc_192.png'),
-      //     destination: path.join('assets'),
-      //     size: '192x192',
-      //   },
-      //   {
-      //     src: path.resolve(__dirname, '../src/assets/bc_512.png'),
-      //     destination: path.join('assets'),
-      //     size: '512x512',
-      //   },
-      // ],
+      icons: [
+        {
+          src: path.resolve(__dirname, '../src/client/assets/roma_192.png'),
+          destination: path.join('assets'),
+          size: '192x192',
+        },
+        {
+          src: path.resolve(__dirname, '../src/client/assets/roma_512.png'),
+          destination: path.join('assets'),
+          size: '512x512',
+        },
+      ],
     }),
   ],
   optimization: {
