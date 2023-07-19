@@ -11,7 +11,13 @@ const StyledProgressVersions = styled.div`
 `;
 
 export const ProgressVersions = () => {
-  const versionsData = useData<VersionDTO[]>('versions?archived=false');
+  const versionsData = useData<VersionDTO[]>(
+    'versions?archived=false',
+    true,
+    0,
+    true,
+    true
+  );
   return (
     <StyledProgressVersions>
       {versionsData.data?.map((v) => (

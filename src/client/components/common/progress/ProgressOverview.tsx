@@ -30,7 +30,13 @@ const StyledRow = styled.li`
 
 export const ProgressOverview = () => {
   const str = useStrings();
-  const versionsData = useData<VersionDTO[]>('versions?archived=false', false);
+  const versionsData = useData<VersionDTO[]>(
+    'versions?archived=false',
+    false,
+    0,
+    true,
+    true
+  );
   const features = (
     (versionsData.data || [])
       .filter((v) => v.features)

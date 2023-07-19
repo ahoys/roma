@@ -12,17 +12,21 @@ import { useStrings } from './hook.useStrings';
  * @param fetch Whether to fetch new data or only use existing.
  * @param pollInMs How often the data is automatically refreshed.
  * @param notify Whether to notify on updates.
+ * @param original Return the original data instead of the merged.
  * @returns The item T or undefined.
  */
 export const useData = <T>(
   endpoint: string,
   doFetch = true,
   pollInMs = 0,
-  notify = true
+  notify = true,
+  original = false
 ) => {
   const dispatch = useAppDispatch();
   const str = useStrings();
-  const data = useAppSelector((state) => state.data.merged[endpoint]);
+  const data = useAppSelector((state) =>
+    original ? state.data.original[endpoint] : state.data.merged[endpoint]
+  );
   const isLoading = useAppSelector((state) => state.data.loading[endpoint]);
   const timeout = useRef<NodeJS.Timeout>();
   useEffect(() => {
