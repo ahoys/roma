@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useData } from 'hooks/hook.useData';
 import { ProgressVersionsRow } from './ProgressVersionsRow';
 import { VersionDTO } from 'dtos/dto.VersionDTO';
+import { useList } from 'hooks/hook.useList';
 
 const StyledProgressVersions = styled.div`
   display: flex;
@@ -11,13 +11,7 @@ const StyledProgressVersions = styled.div`
 `;
 
 export const ProgressVersions = () => {
-  const versionsData = useData<VersionDTO[]>(
-    'versions?archived=false',
-    true,
-    0,
-    true,
-    true
-  );
+  const versionsData = useList<VersionDTO[]>('versions?archived=false');
   return (
     <StyledProgressVersions>
       {versionsData.data?.map((v) => (

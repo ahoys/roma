@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from 'hooks/hook.useAppSelector';
 import { FeatureDTO } from 'dtos/dto.FeatureDTO';
 import { VersionDTO } from 'dtos/dto.VersionDTO';
+import { useList } from 'hooks/hook.useList';
 
 const StyledFeatures = styled.ul`
   display: flex;
@@ -68,7 +69,7 @@ export const ProgressFeatures = ({ version }: IProgressFeatures) => {
   const navigate = useNavigate();
   const str = useStrings();
   const roadmap = useAppSelector((state) => state.data.roadmap);
-  const { data } = useData<FeatureDTO[]>('features?version=' + version._id);
+  const { data } = useList<FeatureDTO[]>('features?version=' + version._id);
   const features = data || [];
   /**
    * Move to the edit page.

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useData } from 'hooks/hook.useData';
 import { useStrings } from 'hooks/hook.useStrings';
 import { VersionDTO } from 'dtos/dto.VersionDTO';
+import { useList } from 'hooks/hook.useList';
 
 const StyledProgressOverview = styled.div`
   display: flex;
@@ -30,13 +30,8 @@ const StyledRow = styled.li`
 
 export const ProgressOverview = () => {
   const str = useStrings();
-  const versionsData = useData<VersionDTO[]>(
-    'versions?archived=false',
-    false,
-    0,
-    true,
-    true
-  );
+  // Fetching already happens in ProgressVersions.
+  const versionsData = useList<VersionDTO[]>('versions?archived=false', false);
   const features = (
     (versionsData.data || [])
       .filter((v) => v.features)
