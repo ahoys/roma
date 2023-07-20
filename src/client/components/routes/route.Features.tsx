@@ -26,6 +26,7 @@ export const Features = () => {
     endpoint,
     !versions.isLoading && version !== undefined
   );
+  console.log({ features, versions });
   return (
     <RouteContainer>
       <RouteHeader value={str.registers.features} />
@@ -47,7 +48,9 @@ export const Features = () => {
             id: 'Features:create',
             name: str.buttons.create,
             icon: faPlus,
-            disabled: versions.isLoading || features.isLoading,
+            disabled:
+              versions.isLoading ||
+              (features.isLoading && version !== undefined),
             onClick: () =>
               dispatch(
                 setModal({
