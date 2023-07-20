@@ -107,17 +107,17 @@ interface IComments {
 
 export const Comments = ({ parent, endpoint }: IComments) => {
   const str = useStrings();
-  const [edit, setEdit] = useState<number | undefined>(undefined);
   const [msg, setMsg] = useState('');
   const {
     data,
     isLoading,
+    editCommentId,
     handleSendComment,
     handleEditComment,
     handleRemoveComment,
+    handleSetEditCommentId,
   } = useComments(parent, endpoint, setMsg);
   const id = `Comments:${endpoint}`;
-  console.log(data);
   return (
     <Label
       endpoint={endpoint}
@@ -138,12 +138,12 @@ export const Comments = ({ parent, endpoint }: IComments) => {
           />
           <StyledActions>
             <IconTextButton
-              name={edit ? str.buttons.update : str.buttons.send}
-              icon={edit ? faRotate : faPaperPlane}
+              name={editCommentId ? str.buttons.update : str.buttons.send}
+              icon={editCommentId ? faRotate : faPaperPlane}
               disabled={isLoading || !msg?.trim()}
               onClick={
-                edit
-                  ? () => handleEditComment(edit, msg)
+                editCommentId !== undefined
+                  ? () => handleEditComment(editCommentId, msg)
                   : () => handleSendComment(msg)
               }
             />
@@ -172,7 +172,7 @@ export const Comments = ({ parent, endpoint }: IComments) => {
                     <StyledCommentTextAreaAction
                       title={str.buttons.edit}
                       onClick={() => {
-                        setEdit(comment._id);
+                        handleSetEditCommentId(comment._id);
                         setMsg(comment.value);
                       }}
                     >

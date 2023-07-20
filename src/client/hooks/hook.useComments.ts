@@ -19,13 +19,18 @@ export const useComments = (
 ): {
   data: TSupportedComments[];
   isLoading: boolean;
+  editCommentId: number | undefined;
   handleSendComment: (comment: string) => void;
   handleEditComment: (id: number, comment: string) => void;
   handleRemoveComment: (id: number) => void;
+  handleSetEditCommentId: (editCommentId: number | undefined) => void;
 } => {
   const dispatch = useAppDispatch();
   const [data, setData] = useState<TSupportedComments[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [editCommentId, setEditCommentId] = useState<number | undefined>(
+    undefined
+  );
   const timeout = useRef<NodeJS.Timeout>();
   /**
    * Fetches the comments from the backend if the endpoint
@@ -72,6 +77,7 @@ export const useComments = (
     axios
       .put(config.api + endpoint + '/' + id, { value: comment })
       .then(() => {
+        setEditCommentId(undefined);
         handleFetchComments();
         clearMsg('');
       })
@@ -110,8 +116,10 @@ export const useComments = (
   return {
     data,
     isLoading,
+    editCommentId,
     handleSendComment,
     handleEditComment,
     handleRemoveComment,
+    handleSetEditCommentId: (v) => setEditCommentId(v),
   };
 };
