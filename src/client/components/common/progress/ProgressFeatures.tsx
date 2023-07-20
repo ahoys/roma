@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import config from 'config';
-import { useData } from 'hooks/hook.useData';
 import { useStrings } from 'hooks/hook.useStrings';
 import { ProgressTags } from './ProgressTags';
 import { useNavigate } from 'react-router-dom';
@@ -15,13 +14,26 @@ const StyledFeatures = styled.ul`
   flex-direction: column;
   margin: 0;
   padding: 0;
-  gap: ${({ theme }) => theme.gap.large};
+  gap: ${({ theme }) => theme.gap.small};
 `;
 
-const StyledFeature = styled.li`
+interface IStyledFeature {
+  stage: 2 | 1 | 0;
+}
+
+const StyledFeature = styled.li<IStyledFeature>`
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  background: ${({ theme, stage }) =>
+    stage === 0
+      ? theme.background.feature_stage_0
+      : stage === 1
+      ? theme.background.feature_stage_1
+      : theme.background.feature_stage_2};
+  color: ${({ theme }) => theme.color.feature};
+  padding: ${({ theme }) => theme.gap.normal};
+  border-radius: ${({ theme }) => theme.gap.normal};
   gap: ${({ theme }) => theme.gap.normal};
 `;
 
@@ -112,7 +124,11 @@ export const ProgressFeatures = ({ version }: IProgressFeatures) => {
   return (
     <StyledFeatures>
       {features?.map((f) => (
-        <StyledFeature key={f._id} onClick={() => handleEditFeature(f)}>
+        <StyledFeature
+          stage={getProgress(f) >= 25 ? (getProgress(f) >= 75 ? 2 : 1) : 0}
+          key={f._id}
+          onClick={() => handleEditFeature(f)}
+        >
           <h3>{f.name}</h3>
           <StyledFeatureTags>
             <p>{getDescription(f)}</p>

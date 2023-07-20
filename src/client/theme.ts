@@ -13,8 +13,11 @@ const dark = {
     modal: '#ffffff',
     pane: '#000000',
     bar: '#000000',
-    tag: '#241b37',
+    tag: '#51436f',
     comment: '#262626',
+    feature_stage_0: 'linear-gradient(-60deg, #1c2b37, #492525, #151b2d)',
+    feature_stage_1: 'linear-gradient(-60deg, #1c2b37, #493823, #151b2d)',
+    feature_stage_2: 'linear-gradient(-60deg, #1c1c30, #1d292a, #1c1c30)',
   },
   color: {
     app: '#dbe1dc',
@@ -32,6 +35,7 @@ const dark = {
     bar: '#00ff8c',
     tag: '#ffffff',
     comment: '#ffffff',
+    feature: '#ffffff',
   },
   border: {
     input: '2px solid #262626',
@@ -83,6 +87,9 @@ const light: typeof dark = {
     bar: '#000000',
     tag: '#d2b9df',
     comment: '#0090ff',
+    feature_stage_0: 'linear-gradient(-60deg, #d4d7e5, #ebb7b7, #d4d7e5)',
+    feature_stage_1: 'linear-gradient(-60deg, #d4d7e5, #fbf0c4, #d4d7e5)',
+    feature_stage_2: 'linear-gradient(-60deg, #d4d7e5, #c1c6c6, #d4d7e5)',
   },
   color: {
     app: '#313131',
@@ -100,6 +107,7 @@ const light: typeof dark = {
     bar: '#00ff8c',
     tag: '#000000',
     comment: '#ffffff',
+    feature: '#000000',
   },
   border: {
     input: '2px solid #cfcfcf',
