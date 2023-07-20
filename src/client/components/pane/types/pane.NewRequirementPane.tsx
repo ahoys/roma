@@ -44,7 +44,10 @@ export const NewRequirementPane = ({ feature }: INewRequirementPane) => {
       .catch((err) => dispatch(setErrorNotifications(getErrorMessages(err))));
   return (
     <>
-      <ActionsWrapper>
+      <Columns columnsCount={1}>
+        <TextField endpoint={endpoint} fieldKey={'value'} value={data?.value} />
+      </Columns>
+      <ActionsWrapper justifyContent={'flex-end'}>
         <IconTextButton
           icon={faSave}
           name={str.buttons.create_requirement}
@@ -53,9 +56,6 @@ export const NewRequirementPane = ({ feature }: INewRequirementPane) => {
           onClick={handleAddRequirement}
         />
       </ActionsWrapper>
-      <Columns columnsCount={1}>
-        <TextField endpoint={endpoint} fieldKey={'value'} value={data?.value} />
-      </Columns>
     </>
   );
 };

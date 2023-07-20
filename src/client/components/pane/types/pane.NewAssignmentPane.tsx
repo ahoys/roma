@@ -108,15 +108,6 @@ export const NewAssignmentPane = ({ feature }: INewAssignmentPane) => {
   }, [data, users]);
   return (
     <>
-      <ActionsWrapper>
-        <IconTextButton
-          icon={faSave}
-          name={str.buttons.assign}
-          hasBackground={false}
-          disabled={data?.userId === undefined}
-          onClick={handleAddAssignment}
-        />
-      </ActionsWrapper>
       <Columns columnsCount={1}>
         <ComboBoxField
           endpoint={endpoint}
@@ -140,6 +131,15 @@ export const NewAssignmentPane = ({ feature }: INewAssignmentPane) => {
           value={data?.hourPrice}
         />
       </Columns>
+      <ActionsWrapper justifyContent={'flex-end'}>
+        <IconTextButton
+          icon={faSave}
+          name={str.buttons.assign}
+          hasBackground={false}
+          disabled={data?.userId === undefined}
+          onClick={handleAddAssignment}
+        />
+      </ActionsWrapper>
     </>
   );
 };

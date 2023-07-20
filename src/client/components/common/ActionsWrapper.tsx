@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface IStyledActionsWrapper {
-  hasGap: boolean;
-  hasBorder: boolean;
+  hasGap: IActionsWrapper['hasGap'];
+  hasBorder: IActionsWrapper['hasBorder'];
+  justifyContent: IActionsWrapper['justifyContent'];
 }
 
 const StyledActionsWrapper = styled.div<IStyledActionsWrapper>`
@@ -11,6 +12,7 @@ const StyledActionsWrapper = styled.div<IStyledActionsWrapper>`
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
+  justify-content: ${({ justifyContent }) => justifyContent};
   padding: ${({ hasBorder }) => (hasBorder ? '2px' : '0')};
   border: ${({ theme, hasBorder }) =>
     hasBorder ? theme.border.actions : 'none'};
@@ -23,14 +25,20 @@ interface IActionsWrapper {
   children: JSX.Element | JSX.Element[] | undefined;
   hasGap?: boolean;
   hasBorder?: boolean;
+  justifyContent?: 'flex-start' | 'center' | 'flex-end';
 }
 
 export const ActionsWrapper = ({
   children,
   hasGap = false,
   hasBorder = true,
+  justifyContent = 'flex-start',
 }: IActionsWrapper) => (
-  <StyledActionsWrapper hasGap={hasGap} hasBorder={hasBorder}>
+  <StyledActionsWrapper
+    hasGap={hasGap}
+    hasBorder={hasBorder}
+    justifyContent={justifyContent}
+  >
     {children}
   </StyledActionsWrapper>
 );

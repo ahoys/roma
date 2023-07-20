@@ -92,21 +92,6 @@ export const EditRequirementPane = ({ id }: IEditRequirementPane) => {
     );
   return (
     <>
-      <ActionsWrapper hasBorder={true}>
-        <IconTextButton
-          icon={faSave}
-          name={str.buttons.update}
-          hasBackground={false}
-          onClick={handleSave}
-        />
-        <IconTextButton
-          icon={faTrash}
-          name={str.buttons.remove}
-          hasBackground={false}
-          danger={true}
-          onClick={handleRemove}
-        />
-      </ActionsWrapper>
       <Columns columnsCount={1}>
         <TextField
           endpoint={endpoint}
@@ -122,6 +107,21 @@ export const EditRequirementPane = ({ id }: IEditRequirementPane) => {
           onChange={handleFulfilled}
         />
       </Columns>
+      <ActionsWrapper justifyContent={'flex-end'}>
+        <IconTextButton
+          icon={faTrash}
+          name={str.buttons.remove}
+          hasBackground={false}
+          danger={true}
+          onClick={handleRemove}
+        />
+        <IconTextButton
+          icon={faSave}
+          name={str.buttons.update}
+          hasBackground={false}
+          onClick={handleSave}
+        />
+      </ActionsWrapper>
       <HorizontalDivider />
       <Comments parent={data?._id} endpoint={'requirement-comments'} />
     </>

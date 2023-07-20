@@ -94,21 +94,6 @@ export const EditAssignmentPane = ({ id }: IEditAssignmentPane) => {
     );
   return (
     <>
-      <ActionsWrapper hasBorder={true}>
-        <IconTextButton
-          icon={faSave}
-          name={str.buttons.update}
-          hasBackground={false}
-          onClick={handleSave}
-        />
-        <IconTextButton
-          icon={faTrash}
-          name={str.buttons.remove}
-          hasBackground={false}
-          danger={true}
-          onClick={handleRemove}
-        />
-      </ActionsWrapper>
       <Columns columnsCount={1}>
         <TextField
           endpoint={endpoint}
@@ -139,6 +124,21 @@ export const EditAssignmentPane = ({ id }: IEditAssignmentPane) => {
           onChange={handleDone}
         />
       </Columns>
+      <ActionsWrapper justifyContent={'flex-end'}>
+        <IconTextButton
+          icon={faSave}
+          name={str.buttons.update}
+          hasBackground={false}
+          onClick={handleSave}
+        />
+        <IconTextButton
+          icon={faTrash}
+          name={str.buttons.remove}
+          hasBackground={false}
+          danger={true}
+          onClick={handleRemove}
+        />
+      </ActionsWrapper>
       <LargeTag
         value={`${(data?.hourPrice ?? 0) * (data?.workHoursEstimate ?? 0)} €`}
       />
