@@ -35,7 +35,7 @@ export const NewRequirementPane = ({ feature }: INewRequirementPane) => {
           setNotification({
             id: 'saved',
             icon: faSave,
-            value: '',
+            value: str.notifications.saved,
             created: new Date().getTime(),
             type: 'text',
           })
