@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { faRotate } from '@fortawesome/free-solid-svg-icons/faRotate';
+import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 
 const StyledVerticalWrapper = styled.div`
   display: flex;
@@ -137,6 +138,16 @@ export const Comments = ({ parent, endpoint }: IComments) => {
             onChange={setMsg}
           />
           <StyledActions>
+            {editCommentId !== undefined && (
+              <IconTextButton
+                name={str.buttons.cancel}
+                icon={faTimes}
+                onClick={() => {
+                  setMsg('');
+                  handleSetEditCommentId(undefined);
+                }}
+              />
+            )}
             <IconTextButton
               name={editCommentId ? str.buttons.update : str.buttons.send}
               icon={editCommentId ? faRotate : faPaperPlane}
