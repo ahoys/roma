@@ -65,8 +65,8 @@ export const CreateNewVersion = ({ id, endpoint }: ICreateNewVersion) => {
                   endpoint,
                   resource: endpoint,
                   data: {
-                    major: data?.major,
-                    minor: data?.minor,
+                    major: data?.major ?? 0,
+                    minor: data?.minor ?? 0,
                     codename: data?.codename,
                   },
                   onSuccess: () => {
