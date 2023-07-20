@@ -78,7 +78,7 @@ export default {
       start_url: process.env.PUBLICPATH || '/',
       display: 'standalone',
       theme_color: '#ffffff',
-      background_color: '#F20D0D',
+      background_color: '#030804',
       fingerprints: false,
       inject: false,
       icons: [
