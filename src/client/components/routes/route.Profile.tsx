@@ -128,23 +128,6 @@ export const Profile = () => {
             dispatch(modifyData({ endpoint, fieldKey: 'hourPrice', value }))
           }
         />
-        <ComboBoxField
-          endpoint={endpoint}
-          fieldKey={'defaultRoadmapId'}
-          selected={data?.defaultRoadmapId ?? data?.defaultRoadmap?._id}
-          options={roadmaps.data
-            ?.map((r) => ({ id: r._id, name: r.name }))
-            .filter((r) => availableRoadmapsForDefault.includes(r.id))}
-          onChange={(value) =>
-            dispatch(
-              modifyData({
-                endpoint,
-                fieldKey: 'defaultRoadmapId',
-                value,
-              })
-            )
-          }
-        />
       </Columns>
       <Columns columnsCount={1}>
         <ListBoxField
@@ -157,6 +140,23 @@ export const Profile = () => {
               modifyData({
                 endpoint,
                 fieldKey: 'roadmapIds',
+                value,
+              })
+            )
+          }
+        />
+        <ComboBoxField
+          endpoint={endpoint}
+          fieldKey={'defaultRoadmapId'}
+          selected={data?.defaultRoadmapId ?? data?.defaultRoadmap?._id}
+          options={roadmaps.data
+            ?.map((r) => ({ id: r._id, name: r.name }))
+            .filter((r) => availableRoadmapsForDefault.includes(r.id))}
+          onChange={(value) =>
+            dispatch(
+              modifyData({
+                endpoint,
+                fieldKey: 'defaultRoadmapId',
                 value,
               })
             )

@@ -114,7 +114,7 @@ print(config);
       assignmentCommentResolvers(app, ds);
       errorResolver(app); // Should come last.
       if (config.isDevelopment) {
-        await createMockupTables();
+        // await createMockupTables();
         const compiler = webpack([
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           WebpackDevClientConfig as any,
