@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import config from 'config';
 import produce from 'immer';
+import _ from 'lodash';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { TRootState } from '../store';
@@ -321,25 +322,34 @@ export const slice = createSlice({
       }>
     ) => {
       const { endpoint, data } = action.payload;
-      state.original[endpoint] = data;
-      const modified = state.modified[endpoint];
-      if (modified) {
-        // Make sure modifys are not overriden, but
-        // if the new data contains same values,
-        // make the keys no more to be modified.
-        for (const key of Object.keys(modified)) {
-          if (
-            ['string', 'number', 'boolean'].includes(typeof modified[key]) &&
-            modified[key] === data[key]
-          ) {
-            delete modified[key];
+      // Update the original data with the received data.
+      state.original = produce(state.original, (draftOriginal) => {
+        draftOriginal[endpoint] = data;
+      });
+      // Update modified data to not contain keys that hold
+      // the same values as the received data.
+      state.modified = produce(state.modified, (draftModified) => {
+        const modified = draftModified[endpoint];
+        if (modified) {
+          for (const key of Object.keys(modified)) {
+            if (_.isEqual(modified[key], data[key])) {
+              delete modified[key];
+            }
           }
+          draftModified[endpoint] = modified;
         }
-        state.modified[endpoint] = modified;
-        state.merged[endpoint] = { ...data, ...modified };
-      } else {
-        state.merged[endpoint] = data;
-      }
+      });
+      // If modified data exists, replace merged data with
+      // received data that is merged with modified data. Otherwise
+      // just replace merged data with the received data.
+      state.merged = produce(state.merged, (draftMerged) => {
+        const modified = state.modified[endpoint];
+        if (modified) {
+          draftMerged[endpoint] = _.merge(data, modified);
+        } else {
+          draftMerged[endpoint] = data;
+        }
+      });
     },
     /**
      * Modifies dialog data that can both
@@ -372,14 +382,16 @@ export const slice = createSlice({
      */
     resetData: (state, action: PayloadAction<{ endpoint: string }>) => {
       const original = state.original[action.payload.endpoint];
-      if (state.modified[action.payload.endpoint]) {
+      state.merged = produce(state.merged, (draftMerged) => {
         if (original) {
-          state.merged[action.payload.endpoint] = original;
+          draftMerged[action.payload.endpoint] = original;
         } else {
-          delete state.merged[action.payload.endpoint];
+          delete draftMerged[action.payload.endpoint];
         }
-        delete state.modified[action.payload.endpoint];
-      }
+      });
+      state.modified = produce(state.modified, (draftModified) => {
+        delete draftModified[action.payload.endpoint];
+      });
     },
     /**
      * Sets a list.
@@ -391,7 +403,9 @@ export const slice = createSlice({
         data: IListEntry[];
       }>
     ) => {
-      state.lists[action.payload.endpoint] = action.payload.data;
+      state.lists = produce(state.lists, (draftLists) => {
+        draftLists[action.payload.endpoint] = action.payload.data;
+      });
     },
     /**
      * Sets the currently active roadmap.
