@@ -59,7 +59,7 @@ export default {
             __dirname,
             '../src/client/assets/favicon.ico'
           )}`,
-          to: `${path.resolve(__dirname, '../dist/public/')}`,
+          to: `${path.resolve(__dirname, '../dist/public/assets/')}`,
         },
       ],
     }),
