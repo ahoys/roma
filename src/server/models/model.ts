@@ -19,22 +19,22 @@ export class Model extends BaseEntity implements ModelDTO {
   // Type and precision is required for (older) MySQL.
   @CreateDateColumn({
     type: 'timestamp',
-    precision: 6,
-    default: () => 'NOW(6)',
+    precision: null,
+    default: () => 'CURRENT_TIMESTAMP',
   })
   _created_at: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
-    precision: 6,
-    default: () => 'NOW(6)',
+    precision: null,
+    default: () => 'CURRENT_TIMESTAMP',
   })
   _updated_at: Date;
 
   @DeleteDateColumn({
     type: 'timestamp',
-    precision: 6,
-    default: () => 'NOW(6)',
+    precision: null,
+    default: () => 'CURRENT_TIMESTAMP',
   })
   _deleted_at: Date;
 }
