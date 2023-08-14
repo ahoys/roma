@@ -10,31 +10,31 @@ import {
 } from 'typeorm';
 
 export class Model extends BaseEntity implements ModelDTO {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: 'int' })
   _id: number;
 
-  @VersionColumn()
+  @VersionColumn({ type: 'int' })
   _version: number;
 
   // Type and precision is required for (older) MySQL.
   @CreateDateColumn({
     type: 'timestamp',
-    precision: null,
-    default: () => 'CURRENT_TIMESTAMP',
+    precision: 6,
+    default: () => 'CURRENT_TIMESTAMP(6)',
   })
   _created_at: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
-    precision: null,
-    default: () => 'CURRENT_TIMESTAMP',
+    precision: 6,
+    default: () => 'CURRENT_TIMESTAMP(6)',
   })
   _updated_at: Date;
 
   @DeleteDateColumn({
     type: 'timestamp',
-    precision: null,
-    default: () => 'CURRENT_TIMESTAMP',
+    precision: 6,
+    default: () => 'CURRENT_TIMESTAMP(6)',
   })
   _deleted_at: Date;
 }
