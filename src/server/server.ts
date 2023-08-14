@@ -174,7 +174,7 @@ print(config);
         http
           .createServer(app)
           .listen(config.port, () =>
-            console.info(`http://localhost:${config.port}...`)
+            console.info(`Running at http://localhost:${config.port}`)
           );
       }
     }))();
