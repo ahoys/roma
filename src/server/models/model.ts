@@ -16,13 +16,26 @@ export class Model extends BaseEntity implements ModelDTO {
   @VersionColumn()
   _version: number;
 
-  @CreateDateColumn()
+  // Type and precision is required for (older) MySQL.
+  @CreateDateColumn({
+    type: 'timestamp',
+    precision: 6,
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
   _created_at: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({
+    type: 'timestamp',
+    precision: 6,
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
   _updated_at: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({
+    type: 'timestamp',
+    precision: 6,
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
   _deleted_at: Date;
 }
 
