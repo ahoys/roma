@@ -20,21 +20,21 @@ export class Model extends BaseEntity implements ModelDTO {
   @CreateDateColumn({
     type: 'timestamp',
     precision: 6,
-    default: () => 'CURRENT_TIMESTAMP(6)',
+    default: () => 'NOW(6)',
   })
   _created_at: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
     precision: 6,
-    default: () => 'CURRENT_TIMESTAMP(6)',
+    default: () => 'NOW(6)',
   })
   _updated_at: Date;
 
   @DeleteDateColumn({
     type: 'timestamp',
     precision: 6,
-    default: () => 'CURRENT_TIMESTAMP(6)',
+    default: () => 'NOW(6)',
   })
   _deleted_at: Date;
 }
