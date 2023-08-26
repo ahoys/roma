@@ -3,7 +3,7 @@ import axios from 'axios';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export interface ISessionState {
-  language: 'fi' | 'en',
+  language: 'en' | 'fi';
   isLoggedIn: boolean;
 }
 
@@ -13,34 +13,49 @@ export const initialState: ISessionState = {
 };
 
 /**
- * Validate SSO-login.
+ * Validate SSO-login if the client
+ * claims to be logged-in.
  */
-export const verify = createAsyncThunk(
-  'session/verify',
-  async (payload, { dispatch }) => {
-    // The user claims to be logged-in. Verify
-    // with sign-in provider.
-    axios.get(config.api + 'verify').catch(() => {
-      // The session is outdated.
-      localStorage.setItem('pathname', window.location.pathname);
-      dispatch(slice.actions.removeSession());
-    });
-  }
+export const verify = createAsyncThunk('session/verify', async () =>
+  axios.get(config.api + 'verify')
+);
+
+/**
+ * Sets language.
+ */
+export const setLanguage = createAsyncThunk(
+  'session/setLanguage',
+  async (language: ISessionState['language']) =>
+    axios.put<{ language: ISessionState['language'] }>(config.api + 'cookies', {
+      language,
+    })
 );
 
 const slice = createSlice({
   name: 'session',
   initialState,
   reducers: {
-    setLanguage: (state, action) => {
-      state.language = action.payload;
-    },
     removeSession: (): ISessionState => ({
       ...initialState,
     }),
   },
+  extraReducers(builder) {
+    /**
+     * Failed to verify the session. Reset the session.
+     */
+    builder.addCase(verify.rejected, () => {
+      localStorage.setItem('pathname', window.location.pathname);
+      return {
+        ...initialState,
+      };
+    });
+    /**
+     * Succeeded to set the language.
+     */
+    builder.addCase(setLanguage.fulfilled, (state, action) => {
+      state.language = action.payload.data.language;
+    });
+  },
 });
-
-export const { setLanguage } = slice.actions;
 
 export default slice.reducer;

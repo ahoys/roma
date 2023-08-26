@@ -16,16 +16,46 @@ export const cookieResolvers = (app: Application) => {
   app.put(config.api + 'cookies', async ({ body }, res, next) => {
     try {
       if (typeof body === 'object') {
-        if (body.screenFormat) {
-          res.cookie(
-            config.cookies.screenFormat,
-            body.screenFormat,
-            defaultCookieOptions
-          );
+        if (
+          typeof body.screenFormat === 'string' &&
+          ['mobile', 'compact', 'wide'].includes(body.screenFormat)
+        ) {
+          return res
+            .cookie(
+              config.cookies.screenFormat,
+              body.screenFormat,
+              defaultCookieOptions
+            )
+            .status(200)
+            .send({
+              screenFormat: body.screenFormat,
+            });
         }
-        res.status(200).end();
+        if (
+          typeof body.theme === 'string' &&
+          ['light', 'dark'].includes(body.theme)
+        ) {
+          return res
+            .cookie(config.cookies.theme, body.theme, defaultCookieOptions)
+            .status(200)
+            .send({
+              theme: body.theme,
+            });
+        }
+        if (body.language && ['en', 'fi'].includes(body.language)) {
+          return res
+            .cookie(
+              config.cookies.language,
+              body.language,
+              defaultCookieOptions
+            )
+            .status(200)
+            .send({
+              language: body.language,
+            });
+        }
       }
-      res.status(200).end();
+      return res.status(304).end();
     } catch (error) {
       next(error);
     }

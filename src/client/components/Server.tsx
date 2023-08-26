@@ -37,6 +37,8 @@ export default ({ clientStats, nonce }: IServer) =>
     const sheet = new ServerStyleSheet();
     try {
       const screenFormat = req.cookies[config.cookies.screenFormat];
+      const theme = req.cookies[config.cookies.theme];
+      const language = req.cookies[config.cookies.language];
       const roadmap = getRoadmapId(req.originalUrl);
       const data: IDataState = { ...defaultDataState };
       if (typeof roadmap === 'number') {
@@ -46,11 +48,13 @@ export default ({ clientStats, nonce }: IServer) =>
         config.isDevelopment && config.oauth.overrideAccess;
       const session: ISessionState = {
         ...defaultSessionState,
+        language: language || defaultSessionState.language,
         isLoggedIn: !!req.user || overrideSecurity,
       };
       const device: IDeviceState = {
         ...defaultDeviceState,
         screenFormat: screenFormat || defaultDeviceState.screenFormat,
+        theme: theme || defaultDeviceState.theme,
       };
       const store = createStore({ session, data, device });
       const client = ReactDOMServer.renderToString(

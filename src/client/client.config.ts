@@ -19,6 +19,8 @@ const production = {
   cookies: {
     domain: process.env.COOKIES_DOMAIN,
     screenFormat: '__Secure-roma_screenFormat',
+    theme: '__Secure-roma_theme',
+    language: '__Secure-roma_language',
   },
   oauth: {
     apiAuthenticate: publicPath + 'google',
@@ -38,6 +40,8 @@ const development: typeof production = {
   cookies: {
     domain: 'localhost',
     screenFormat: 'roma_dev_screenFormat',
+    theme: 'roma_dev_theme',
+    language: 'roma_dev_language',
   },
   oauth: {
     ...production.oauth,

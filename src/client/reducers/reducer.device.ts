@@ -1,6 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import config from 'config';
+import axios from 'axios';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TThemes } from '../theme';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
 export interface IDeviceState {
   screenFormat: 'mobile' | 'compact' | 'wide';
@@ -12,19 +14,35 @@ export const initialState: IDeviceState = {
   theme: 'dark',
 };
 
+/**
+ * Sets screenFormat.
+ */
+export const setScreenFormat = createAsyncThunk(
+  'device/setScreenFormat',
+  async (screenFormat: IDeviceState['screenFormat']) =>
+    axios.put<{ screenFormat: IDeviceState['screenFormat'] }>(
+      config.api + 'cookies',
+      {
+        screenFormat,
+      }
+    )
+);
+
+/**
+ * Sets theme.
+ */
+export const setTheme = createAsyncThunk(
+  'device/setTheme',
+  async (theme: IDeviceState['theme']) =>
+    axios.put<{ theme: IDeviceState['theme'] }>(config.api + 'cookies', {
+      theme,
+    })
+);
+
 export const deviceSlice = createSlice({
   name: 'device',
   initialState,
   reducers: {
-    /**
-     * Sets the current screenformat.
-     */
-    setScreenFormat: (
-      state,
-      action: PayloadAction<IDeviceState['screenFormat']>
-    ) => {
-      state.screenFormat = action.payload;
-    },
     /**
      * Sets the current theme.
      */
@@ -32,8 +50,20 @@ export const deviceSlice = createSlice({
       state.theme = action.payload;
     },
   },
+  extraReducers(builder) {
+    /**
+     * Succeeded to set the screenformat.
+     */
+    builder.addCase(setScreenFormat.fulfilled, (state, action) => {
+      state.screenFormat = action.payload.data.screenFormat;
+    });
+    /**
+     * Succeeded to set the screenformat.
+     */
+    builder.addCase(setTheme.fulfilled, (state, action) => {
+      state.theme = action.payload.data.theme;
+    });
+  },
 });
-
-export const { setScreenFormat, setTheme } = deviceSlice.actions;
 
 export default deviceSlice.reducer;

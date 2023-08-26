@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import config from 'config';
-import axios from 'axios';
 import { useAppDispatch } from 'hooks/hook.useAppDispatch';
 import { useAppSelector } from 'hooks/hook.useAppSelector';
 import { IDeviceState, setScreenFormat } from 'reducers/reducer.device';
@@ -85,7 +84,6 @@ export const App = () => {
     }
     if (screenFormat !== newScreenFormat) {
       dispatch(setScreenFormat(newScreenFormat));
-      axios.put(config.api + 'cookies', { screenFormat: newScreenFormat });
     }
   };
   useEffect(() => {
