@@ -1,6 +1,11 @@
-const fi = {
+const en = {
+  nonArchived: 'Non-archived',
+  archived: 'Archived',
+};
+
+const fi: typeof en = {
   nonArchived: 'Ei-arkistoidut',
   archived: 'Arkistoidut',
 };
 
-export default { fi };
+export default { en, fi };

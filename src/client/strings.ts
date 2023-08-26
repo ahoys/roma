@@ -14,6 +14,54 @@ import login from 'strings/strings.login';
 import profile from 'strings/strings.profile';
 import options from 'strings/strings.options';
 
+const en = {
+  fields: {
+    ...fields.en,
+  },
+  buttons: {
+    ...buttons.en,
+  },
+  registers: {
+    ...registers.en,
+  },
+  titles: {
+    ...titles.en,
+  },
+  navigator: {
+    ...navigator.en,
+  },
+  notifications: {
+    ...notifications.en,
+  },
+  inputs: {
+    ...inputs.en,
+  },
+  panes: {
+    ...panes.en,
+  },
+  descriptions: {
+    ...descriptions.en,
+  },
+  progress: {
+    ...progress.en,
+  },
+  comment: {
+    ...comment.en,
+  },
+  home: {
+    ...home.en,
+  },
+  login: {
+    ...login.en,
+  },
+  profile: {
+    ...profile.en,
+  },
+  options: {
+    ...options.en,
+  },
+};
+
 const fi = {
   fields: {
     ...fields.fi,
@@ -62,4 +110,4 @@ const fi = {
   },
 };
 
-export const strings: { [key: string]: typeof fi } = { fi };
+export const strings: { [key: string]: typeof en } = { en, fi };

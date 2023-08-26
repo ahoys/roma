@@ -3,10 +3,12 @@ import axios from 'axios';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export interface ISessionState {
+  language: 'fi' | 'en',
   isLoggedIn: boolean;
 }
 
 export const initialState: ISessionState = {
+  language: 'fi',
   isLoggedIn: config.isDevelopment && config.oauth.overrideAccess,
 };
 

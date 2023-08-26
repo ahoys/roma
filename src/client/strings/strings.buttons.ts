@@ -1,4 +1,26 @@
-const fi = {
+const en = {
+  create: 'Create new',
+  back: 'Back',
+  undo: 'Undo',
+  close: 'Close',
+  save: 'Save',
+  remove: 'Remove',
+  edit: 'Edit',
+  on: 'On',
+  off: 'Off',
+  create_requirement: 'Add requirement',
+  assign: 'Assign',
+  update: 'Update',
+  send: 'Send',
+  authenticate: 'Authenticate',
+  unauthenticate: 'Unauthenticate',
+  open_feature: 'Open feature',
+  confirm: 'Confirm',
+  cancel: 'Cancel',
+  selectRoadmap: 'Select roadmap',
+};
+
+const fi: typeof en = {
   create: 'Luo uusi',
   back: 'Takaisin',
   undo: 'Kumoa',
@@ -20,4 +42,4 @@ const fi = {
   selectRoadmap: 'Valitse roadmap',
 };
 
-export default { fi };
+export default { en, fi };

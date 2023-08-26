@@ -1,4 +1,20 @@
-const fi = {
+const en = {
+  follow: 'Follow',
+  build: 'Build',
+  registers: 'Registers',
+  progress: 'Progress',
+  assignments: 'Assignments',
+  features: 'Features',
+  versions: 'Versions',
+  products: 'Products',
+  tags: 'Tags',
+  dev: 'Dev',
+  dev_tools: 'Dev tools',
+  theme_light: 'Light theme',
+  theme_dark: 'Dark theme',
+};
+
+const fi: typeof en = {
   follow: 'Seuranta',
   build: 'Suunnittelu',
   registers: 'Rekisterit',
@@ -14,4 +30,4 @@ const fi = {
   theme_dark: 'Tumma teema',
 };
 
-export default { fi };
+export default { en, fi };

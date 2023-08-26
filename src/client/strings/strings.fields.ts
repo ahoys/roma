@@ -1,4 +1,36 @@
-const fi: { [key: string]: string } = {
+const en: {[key: string]: string} = {
+  _id: 'Id',
+  name: 'Name',
+  filter: 'Filter',
+  roadmap: 'Roadmap',
+  archived: 'Archived',
+  version: 'Version',
+  tags: 'Tags',
+  products: 'Products',
+  requirements: 'Requirements',
+  assignments: 'Assignments',
+  weight: 'Weight',
+  color: 'Color',
+  workHoursEstimate: 'Work hours estimate (h)',
+  hourPrice: 'Hour price (€/h)',
+  user: 'User',
+  comment: 'Comment',
+  done: 'Done',
+  fulfilled: 'Fulfilled',
+  value: 'Value',
+  major: 'Major',
+  minor: 'Minor',
+  codename: 'Codename',
+  balance: 'Balance',
+  comments: 'Comments',
+  assignee: 'Assignee',
+  feature: 'Feature',
+  defaultRoadmapId: 'Default roadmap',
+  roadmapIds: 'My roadmaps',
+  archival: 'Archival',
+};
+
+const fi: typeof en = {
   _id: 'Tunniste',
   name: 'Nimi',
   filter: 'Suodata',
@@ -30,4 +62,4 @@ const fi: { [key: string]: string } = {
   archival: 'Arkistointi',
 };
 
-export default { fi };
+export default { en, fi };

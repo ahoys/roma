@@ -1,4 +1,19 @@
-const fi = {
+const en = {
+  requirements_done_0: 'Requirements done ',
+  requirements_done_1: '.',
+  no_requirements_set: 'No requirements set for this feature.',
+  balance: 'Balance between current and new customers.',
+  balance_neg2: 'Version targeted to current customers.',
+  balance_neg1: 'Version targeted first to current customers.',
+  balance_n: 'Version targeted to both current and new customers.',
+  balance_pos1: 'Version targeted mostly to new customers.',
+  balance_pos2: 'Version targeted to new customers.',
+  avg_balance: 'Average balance',
+  price: 'Price',
+  hours: 'Hours',
+};
+
+const fi: typeof en = {
   requirements_done_0: 'Vaatimuksista ',
   requirements_done_1: ' täytetty.',
   no_requirements_set: 'Ominaisuudelle ei ole asetettu vaatimuksia.',
@@ -13,4 +28,4 @@ const fi = {
   hours: 'Ominaisuuksien työmäärä',
 };
 
-export default { fi };
+export default { en, fi };

@@ -1,4 +1,41 @@
-const fi: { [key: string]: string } = {
+const en: { [key: string]: string } = {
+  name: 'Identifier for the item in the UI.',
+  version: 'Version where this feature first appears.',
+  major:
+    'When the product is modified in a way that breaks backwards compatibility, the major version is updated.',
+  minor:
+    'When features are added or modified in a way that does not affect backwards compatibility, the minor version is updated.',
+  codename: 'Makes it easier to remember the meaning of the version.',
+  products: 'The feature is related to the selected products.',
+  tags: 'Highlight the special features of the feature with tags.',
+  weight: 'You can increase the importance of an item with the weight of the tag.',
+  assignments: 'Mark who is responsible for taking the feature forward.',
+  requirements: 'The feature requirement specification describes the feature in its entirety.',
+  workHoursEstimate:
+    'Estimate how many hours it will take to complete the assignment. ' +
+    'The value can be updated later as needed. ' +
+    'The price of the assignment is calculated based on the value.',
+  hourPrice:
+    'How much does the developer work in the assignment cost per hour. Integer in euros.',
+  done:
+    'The assignment is completed and no more time is spent on it in the name of this assignment.',
+  archived:
+    'Archived items are not visible in listings or searches. Archive the item when the version is no longer relevant',
+  value:
+    'Describe the requirement concisely. What goal does the feature achieve with this requirement?',
+  fulfilled: 'The feature is ready when all the requirements set for it are met.',
+  balance:
+    'Does the importance of the feature lean towards keeping current customers or getting new ones?',
+  assignee: 'Who is responsible for implementing this assignment.',
+  feature: 'Feature associated with the item.',
+  roadmapUsers:
+    'Only marked users appear in the drop-down lists and other information of the Roadmap.',
+  defaultRoadmapId:
+    'The interface opens automatically to this roadmap when the user logs in.',
+  roadmapIds: 'Show only the roadmaps you have signed up for here.',
+};
+
+const fi: typeof en = {
   name: 'Kohteen tunniste käyttöliittymässä.',
   version: 'Versio jossa tämä ominaisuus esiintyy ensimmäisen kerran.',
   major:
@@ -41,4 +78,4 @@ const fi: { [key: string]: string } = {
     'Näyt ainoastaan niiden roadmappien pudotuslistoilla joille olet ilmottautunut tässä.',
 };
 
-export default { fi };
+export default { en, fi };
