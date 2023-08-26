@@ -15,6 +15,8 @@ import profile from 'strings/strings.profile';
 import options from 'strings/strings.options';
 
 const en = {
+  _id: 'en',
+  _name: 'English (en)',
   fields: {
     ...fields.en,
   },
@@ -62,7 +64,9 @@ const en = {
   },
 };
 
-const fi = {
+const fi: typeof en = {
+  _id: 'fi',
+  _name: 'Suomi (fi)',
   fields: {
     ...fields.fi,
   },

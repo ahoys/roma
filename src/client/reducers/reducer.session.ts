@@ -32,10 +32,15 @@ const slice = createSlice({
   name: 'session',
   initialState,
   reducers: {
+    setLanguage: (state, action) => {
+      state.language = action.payload;
+    },
     removeSession: (): ISessionState => ({
       ...initialState,
     }),
   },
 });
+
+export const { setLanguage } = slice.actions;
 
 export default slice.reducer;

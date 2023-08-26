@@ -5,12 +5,14 @@ import axios from 'axios';
 import { ToolbarButton } from './toolbar.ToolbarButton';
 import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
+import { faLanguage } from '@fortawesome/free-solid-svg-icons/faLanguage';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from 'hooks/hook.useAppDispatch';
 import { setRoadmap } from 'reducers/reducer.data';
 import { useAppSelector } from 'hooks/hook.useAppSelector';
 import { useStrings } from 'hooks/hook.useStrings';
 import { useWhoAmI } from 'hooks/hook.useWhoAmI';
+import { setLanguage } from 'reducers/reducer.session';
 
 const StyledToolbar = styled.div`
   position: relative;
@@ -38,6 +40,7 @@ export const Toolbar = () => {
   const navigate = useNavigate();
   const str = useStrings();
   const roadmap = useAppSelector((state) => state.data.roadmap);
+  const language = useAppSelector((state) => state.session.language);
   const [name, setName] = useState(str.buttons.selectRoadmap);
   const whoAmI = useWhoAmI();
   const handleSwitchRoadmap = () => {
@@ -45,6 +48,7 @@ export const Toolbar = () => {
     navigate(config.publicPath);
   };
   const handleEditProfile = () => navigate(config.publicPath + 'profile');
+  const handleSwitchLanguage = () => dispatch(setLanguage(language === 'en' ? 'fi' : 'en'));
   useEffect(() => {
     if (roadmap) {
       axios.get(config.api + 'roadmaps/' + roadmap).then(({ data }) => {
@@ -61,6 +65,11 @@ export const Toolbar = () => {
           name={name}
           icon={faEdit}
           onClick={handleSwitchRoadmap}
+        />
+        <ToolbarButton
+          name={str._name}
+          icon={faLanguage}
+          onClick={handleSwitchLanguage}
         />
         <ToolbarButton
           name={whoAmI?.user?.name.split(' ')[0] || '...'}
