@@ -14,6 +14,9 @@ export class Requirement extends Model implements ModelDTO {
   @Column(defaultBooleanColumn)
   fulfilled: boolean;
 
+  @Column(defaultBooleanColumn)
+  functional: boolean;
+
   @ManyToOne(() => Feature, (model) => model.requirements, {
     nullable: false,
     onDelete: 'CASCADE',
@@ -50,6 +53,9 @@ export class Requirement extends Model implements ModelDTO {
     }
     if (typeof partial.fulfilled === 'boolean') {
       model.fulfilled = partial.fulfilled;
+    }
+    if (typeof partial.functional === 'boolean') {
+      model.functional = partial.functional;
     }
     if (typeof partial.featureId === 'number') {
       model.feature = (await Feature.findOneBy({

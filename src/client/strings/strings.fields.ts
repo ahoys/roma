@@ -1,4 +1,4 @@
-const en: {[key: string]: string} = {
+const en: { [key: string]: string } = {
   _id: 'Id',
   name: 'Name',
   filter: 'Filter',
@@ -17,6 +17,7 @@ const en: {[key: string]: string} = {
   comment: 'Comment',
   done: 'Done',
   fulfilled: 'Fulfilled',
+  functional: 'Functional requirement',
   value: 'Value',
   major: 'Major',
   minor: 'Minor',
@@ -49,6 +50,7 @@ const fi: typeof en = {
   comment: 'Kommentti',
   done: 'Valmis',
   fulfilled: 'Toteutuu',
+  functional: 'Funktionaalinen vaatimus',
   value: 'Arvo',
   major: 'Major',
   minor: 'Minor',

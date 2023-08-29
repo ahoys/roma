@@ -11,6 +11,10 @@ export class RequirementDTO extends ModelDTO {
   @IsOptional()
   fulfilled: boolean;
 
+  @IsBoolean()
+  @IsOptional()
+  functional: boolean;
+
   @IsInt()
   featureId?: FeatureDTO['_id'];
   feature?: FeatureDTO;
@@ -24,6 +28,9 @@ export class RequirementDTO extends ModelDTO {
     }
     if (typeof partial.fulfilled === 'boolean') {
       this.fulfilled = partial.fulfilled;
+    }
+    if (typeof partial.functional === 'boolean') {
+      this.functional = partial.functional;
     }
     if (typeof partial.featureId === 'number') {
       this.featureId = partial.featureId;

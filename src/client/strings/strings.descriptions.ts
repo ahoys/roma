@@ -8,22 +8,25 @@ const en: { [key: string]: string } = {
   codename: 'Makes it easier to remember the meaning of the version.',
   products: 'The feature is related to the selected products.',
   tags: 'Highlight the special features of the feature with tags.',
-  weight: 'You can increase the importance of an item with the weight of the tag.',
+  weight:
+    'You can increase the importance of an item with the weight of the tag.',
   assignments: 'Mark who is responsible for taking the feature forward.',
-  requirements: 'The feature requirement specification describes the feature in its entirety.',
+  requirements:
+    'The feature requirement specification describes the feature in its entirety.',
   workHoursEstimate:
     'Estimate how many hours it will take to complete the assignment. ' +
     'The value can be updated later as needed. ' +
     'The price of the assignment is calculated based on the value.',
   hourPrice:
     'How much does the developer work in the assignment cost per hour. Integer in euros.',
-  done:
-    'The assignment is completed and no more time is spent on it in the name of this assignment.',
+  done: 'The assignment is completed and no more time is spent on it in the name of this assignment.',
   archived:
     'Archived items are not visible in listings or searches. Archive the item when the version is no longer relevant',
   value:
     'Describe the requirement concisely. What goal does the feature achieve with this requirement?',
-  fulfilled: 'The feature is ready when all the requirements set for it are met.',
+  fulfilled:
+    'The feature is ready when all the requirements set for it are met.',
+  functional: 'A requirement can be either functional or non-functional.',
   balance:
     'Does the importance of the feature lean towards keeping current customers or getting new ones?',
   assignee: 'Who is responsible for implementing this assignment.',
@@ -66,6 +69,7 @@ const fi: typeof en = {
     'tämän vaatimuksen myötä?',
   fulfilled:
     'Ominaisuus on valmis kun kaikki sille asetetut vaatimukset täyttyvät.',
+  functional: 'Vaatimus voi olla joko funktionaalinen tai ei-funktionaalinen.',
   balance:
     'Kallistuuko ominaisuuden merkitys nykyisten asiakkaiden pitämiseen, vai uusien saamiseen?',
   assignee: 'Kenen tehtävänä on toteuttaa tämä toimeksianto.',

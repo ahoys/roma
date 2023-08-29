@@ -70,6 +70,17 @@ export const EditRequirementPane = ({ id }: IEditRequirementPane) => {
       })
     );
   /**
+   * Switches to functional/non-functional.
+   */
+  const handleFunctional = (value: boolean) =>
+    dispatch(
+      modifyData({
+        endpoint,
+        fieldKey: 'functional',
+        value,
+      })
+    );
+  /**
    * Removes requirement.
    */
   const handleRemove = () =>
@@ -99,6 +110,12 @@ export const EditRequirementPane = ({ id }: IEditRequirementPane) => {
           value={data?.value}
           readonly={data?.fulfilled}
           onChange={handleValue}
+        />
+        <SwitchField
+          endpoint={endpoint}
+          fieldKey={'functional'}
+          value={data?.functional}
+          onChange={handleFunctional}
         />
         <SwitchField
           endpoint={endpoint}

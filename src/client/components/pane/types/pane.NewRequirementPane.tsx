@@ -16,6 +16,7 @@ import {
 import { getErrorMessages } from 'utilities/utilities.errors';
 import { TextField } from 'components/common/fields/field.TextField';
 import { RequirementDTO } from 'dtos/dto.RequirementDTO';
+import { SwitchField } from 'components/common/fields/field.SwitchField';
 
 const endpoint = 'requirements/0';
 
@@ -26,7 +27,8 @@ export const NewRequirementPane = ({ feature }: INewRequirementPane) => {
   const handleAddRequirement = () =>
     axios
       .post(config.api + 'requirements', {
-        value: data?.value,
+        value: data?.value ?? '',
+        functional: Boolean(data?.functional),
         featureId: feature,
       })
       .then(() => {
@@ -46,6 +48,11 @@ export const NewRequirementPane = ({ feature }: INewRequirementPane) => {
     <>
       <Columns columnsCount={1}>
         <TextField endpoint={endpoint} fieldKey={'value'} value={data?.value} />
+        <SwitchField
+          endpoint={endpoint}
+          fieldKey={'functional'}
+          value={data?.functional}
+        />
       </Columns>
       <ActionsWrapper justifyContent={'flex-end'}>
         <IconTextButton
