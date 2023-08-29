@@ -162,53 +162,47 @@ export const Comments = ({ parent, endpoint }: IComments) => {
           </StyledActions>
         </StyledWriteWrapper>
         <StyledCommentsWrapper>
-          {data
-            ?.sort(
-              (a, b) =>
-                new Date(b._created_at).getTime() -
-                new Date(a._created_at).getTime()
-            )
-            .map((comment) => (
-              <StyledComment key={comment._id}>
-                <StyledCommentTextArea>
-                  <StyledCommentTextAreaL>
-                    {comment.value
-                      .replace(/\n{2,}/g, '\n\n')
-                      .split(/\n/g)
-                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      .map((s: any, i: number) => (
-                        <p key={i}>{s}</p>
-                      ))}
-                  </StyledCommentTextAreaL>
-                  <StyledCommentTextAreaR>
-                    <StyledCommentTextAreaAction
-                      title={str.buttons.edit}
-                      onClick={() => {
-                        handleSetEditCommentId(comment._id);
-                        setMessage(comment.value);
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faEdit} />
-                    </StyledCommentTextAreaAction>
-                    <StyledCommentTextAreaAction
-                      title={str.buttons.remove}
-                      onClick={() => handleRemoveComment(comment._id)}
-                    >
-                      <FontAwesomeIcon icon={faTrash} />
-                    </StyledCommentTextAreaAction>
-                  </StyledCommentTextAreaR>
-                </StyledCommentTextArea>
-                <StyledCommentInfoArea>
-                  <p>
-                    {comment.user?.name}{' '}
-                    {comment._updated_at === comment._created_at
-                      ? str.comment.user_sent_comment
-                      : str.comment.user_updated_comment}{' '}
-                    {new Date(comment._updated_at).toLocaleString('fi')}
-                  </p>
-                </StyledCommentInfoArea>
-              </StyledComment>
-            ))}
+          {data.map((comment) => (
+            <StyledComment key={comment._id}>
+              <StyledCommentTextArea>
+                <StyledCommentTextAreaL>
+                  {comment.value
+                    .replace(/\n{2,}/g, '\n\n')
+                    .split(/\n/g)
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    .map((s: any, i: number) => (
+                      <p key={i}>{s}</p>
+                    ))}
+                </StyledCommentTextAreaL>
+                <StyledCommentTextAreaR>
+                  <StyledCommentTextAreaAction
+                    title={str.buttons.edit}
+                    onClick={() => {
+                      handleSetEditCommentId(comment._id);
+                      setMessage(comment.value);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faEdit} />
+                  </StyledCommentTextAreaAction>
+                  <StyledCommentTextAreaAction
+                    title={str.buttons.remove}
+                    onClick={() => handleRemoveComment(comment._id)}
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </StyledCommentTextAreaAction>
+                </StyledCommentTextAreaR>
+              </StyledCommentTextArea>
+              <StyledCommentInfoArea>
+                <p>
+                  {comment.user?.name}{' '}
+                  {comment._updated_at === comment._created_at
+                    ? str.comment.user_sent_comment
+                    : str.comment.user_updated_comment}{' '}
+                  {new Date(comment._updated_at).toLocaleString('fi')}
+                </p>
+              </StyledCommentInfoArea>
+            </StyledComment>
+          ))}
         </StyledCommentsWrapper>
       </StyledVerticalWrapper>
     </Label>

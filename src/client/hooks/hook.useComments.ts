@@ -1,11 +1,17 @@
-import axios from 'axios';
-import config from 'config';
 import { useState, useEffect, useRef } from 'react';
 import { setErrorNotifications } from 'reducers/reducer.notifications';
 import { useAppDispatch } from './hook.useAppDispatch';
 import { getErrorMessages } from 'utilities/utilities.errors';
 import { RequirementCommentDTO } from 'dtos/dto.RequirementCommentDTO';
 import { AssignmentCommentDTO } from 'dtos/dto.AssignmentCommentDTO';
+import {
+  deleteComment,
+  getComments,
+  sendComment,
+  setWorkspace,
+  updateComment,
+} from 'reducers/reducer.comments';
+import { useAppSelector } from './hook.useAppSelector';
 
 type TSupportedComments = RequirementCommentDTO | AssignmentCommentDTO;
 
@@ -27,47 +33,35 @@ export const useComments = (
   handleSetEditCommentId: (editCommentId: number | undefined) => void;
 } => {
   const dispatch = useAppDispatch();
-  const [message, setMessage] = useState('');
-  const [data, setData] = useState<TSupportedComments[]>([]);
+  const data = useAppSelector((state) => state.comments.received[parent ?? -1]);
+  const message = useAppSelector(
+    (state) => state.comments.workspace[parent ?? -1]
+  );
+  const isRequirement = Boolean(endpoint?.startsWith('requirement-comments'));
   const [isLoading, setIsLoading] = useState(false);
   const [editCommentId, setEditCommentId] = useState<number | undefined>(
     undefined
   );
   const timeout = useRef<NodeJS.Timeout>();
   /**
-   * Fetches the comments from the backend if the endpoint
-   * and parent are defined.
-   */
-  const handleFetchComments = () => {
-    if (endpoint && parent !== undefined && !isLoading) {
-      setIsLoading(true);
-      axios
-        .get<TSupportedComments[] | undefined>(
-          config.api + endpoint + '?parent=' + parent
-        )
-        .then((response) => {
-          if (Array.isArray(response.data)) {
-            setData(response.data);
-          }
-        })
-        .catch((err) => dispatch(setErrorNotifications(getErrorMessages(err))))
-        .finally(() => setIsLoading(false));
-    }
-  };
-  /**
    * Handles sending a comment to the backend.
    * @param comment Content of the comment.
    */
   const handleSendComment = (comment: string) => {
     if (!comment?.trim()) return;
-    setIsLoading(true);
-    axios
-      .post(config.api + endpoint, { parentId: parent, value: comment })
-      .then(() => {
-        handleFetchComments();
-        setMessage('');
-      })
-      .catch((err) => dispatch(setErrorNotifications(getErrorMessages(err))));
+    if (parent) {
+      setIsLoading(true);
+      dispatch(
+        sendComment({
+          parentId: parent,
+          isRequirement,
+          value: comment,
+        })
+      )
+        .then(() => dispatch(getComments({ parentId: parent, isRequirement })))
+        .catch((err) => dispatch(setErrorNotifications(getErrorMessages(err))))
+        .finally(() => setIsLoading(false));
+    }
   };
   /**
    * Handles editing a comment.
@@ -75,40 +69,54 @@ export const useComments = (
    * @param comment Content of the comment.
    */
   const handleEditComment = (id: number, comment: string) => {
-    setIsLoading(true);
-    axios
-      .put(config.api + endpoint + '/' + id, { value: comment })
-      .then(() => {
-        setEditCommentId(undefined);
-        handleFetchComments();
-        setMessage('');
-      })
-      .catch((err) => dispatch(setErrorNotifications(getErrorMessages(err))));
+    if (parent) {
+      setIsLoading(true);
+      dispatch(
+        updateComment({
+          parentId: parent,
+          _id: id,
+          isRequirement,
+          value: comment,
+        })
+      )
+        .then(() => dispatch(getComments({ parentId: parent, isRequirement })))
+        .catch((err) => dispatch(setErrorNotifications(getErrorMessages(err))))
+        .finally(() => setIsLoading(false));
+    }
   };
   /**
    * Handles removing a comment.
    * @param id Id of the comment.
    */
   const handleRemoveComment = (id: number) => {
-    setIsLoading(true);
-    axios
-      .delete(config.api + endpoint + '/' + id)
-      .then(() => handleFetchComments())
-      .catch((err) => dispatch(setErrorNotifications(getErrorMessages(err))));
+    if (parent) {
+      setIsLoading(true);
+      dispatch(deleteComment({ _id: id, isRequirement }))
+        .then(() => dispatch(getComments({ parentId: parent, isRequirement })))
+        .catch((err) => dispatch(setErrorNotifications(getErrorMessages(err))))
+        .finally(() => setIsLoading(false));
+    }
   };
   /**
    * Automatically fetches the comments when the endpoint changes,
    * also polls the comments every n seconds.
    */
   useEffect(() => {
-    const handlePoll = () => {
-      handleFetchComments();
-      clearTimeout(timeout.current);
-      timeout.current = setTimeout(() => {
-        handlePoll();
-      }, 2048);
-    };
-    handlePoll();
+    if (parent) {
+      const handlePoll = () => {
+        dispatch(
+          getComments({
+            parentId: parent,
+            isRequirement,
+          })
+        );
+        clearTimeout(timeout.current);
+        timeout.current = setTimeout(() => {
+          handlePoll();
+        }, 2048);
+      };
+      handlePoll();
+    }
     return () => {
       if (timeout.current) {
         clearTimeout(timeout.current);
@@ -116,11 +124,12 @@ export const useComments = (
     };
   }, [endpoint, parent]);
   return {
-    data,
+    data: data || [],
     isLoading,
     editCommentId,
-    message,
-    setMessage,
+    message: message ?? '',
+    setMessage: (value: string) =>
+      parent ? dispatch(setWorkspace({ parentId: parent, value })) : {},
     handleSendComment,
     handleEditComment,
     handleRemoveComment,

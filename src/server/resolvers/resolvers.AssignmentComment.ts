@@ -44,6 +44,9 @@ export const assignmentCommentResolvers = (
           _id: getIntFromObject('parent', req.query),
         },
       },
+      order: {
+        _created_at: 'DESC',
+      },
     }),
   });
 

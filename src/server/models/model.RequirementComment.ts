@@ -19,6 +19,7 @@ export class RequirementComment extends Model implements RequirementCommentDTO {
   @ManyToOne(() => User, (model) => model.requirementComments, {
     nullable: false,
     onDelete: 'CASCADE',
+    eager: true,
   })
   user: User;
 

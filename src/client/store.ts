@@ -5,6 +5,7 @@ import data from './reducers/reducer.data';
 import modals from './reducers/reducer.modals';
 import pane from './reducers/reducer.pane';
 import notifications from './reducers/reducer.notifications';
+import comments from './reducers/reducer.comments';
 import config from 'config';
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers, DeepPartial } from 'redux';
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   modals,
   pane,
   notifications,
+  comments,
 });
 
 export type TStoreState = ReturnType<typeof reducer>;

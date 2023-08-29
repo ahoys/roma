@@ -44,6 +44,9 @@ export const requirementCommentResolvers = (
           _id: getIntFromObject('parent', req.query),
         },
       },
+      order: {
+        _created_at: 'DESC',
+      },
     }),
   });
 

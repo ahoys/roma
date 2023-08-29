@@ -19,6 +19,7 @@ export class AssignmentComment extends Model implements AssignmentCommentDTO {
   @ManyToOne(() => User, (model) => model.assignmentComments, {
     nullable: false,
     onDelete: 'CASCADE',
+    eager: true,
   })
   user: User;
 
