@@ -26,7 +26,6 @@ export const Features = () => {
     endpoint,
     !versions.isLoading && version !== undefined
   );
-  console.log({ features, versions });
   return (
     <RouteContainer>
       <RouteHeader value={str.registers.features} />

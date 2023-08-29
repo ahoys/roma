@@ -67,7 +67,6 @@ export const Label = ({
   children,
 }: ILabel) => {
   const modified = useIsModified(endpoint, fieldKey);
-  console.log({ endpoint, fieldKey, modified });
   return (
     <StyledLabel htmlFor={htmlFor} aria-label={name}>
       <StyledHeaderWrapper>
