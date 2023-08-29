@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { setErrorNotifications } from 'reducers/reducer.notifications';
 import { useAppDispatch } from './hook.useAppDispatch';
 import { getErrorMessages } from 'utilities/utilities.errors';
@@ -42,7 +42,6 @@ export const useComments = (
   const [editCommentId, setEditCommentId] = useState<number | undefined>(
     undefined
   );
-  const timeout = useRef<NodeJS.Timeout>();
   /**
    * Handles sending a comment to the backend.
    * @param comment Content of the comment.
@@ -103,25 +102,13 @@ export const useComments = (
    */
   useEffect(() => {
     if (parent) {
-      const handlePoll = () => {
-        dispatch(
-          getComments({
-            parentId: parent,
-            isRequirement,
-          })
-        );
-        clearTimeout(timeout.current);
-        timeout.current = setTimeout(() => {
-          handlePoll();
-        }, 2048);
-      };
-      handlePoll();
+      dispatch(
+        getComments({
+          parentId: parent,
+          isRequirement,
+        })
+      );
     }
-    return () => {
-      if (timeout.current) {
-        clearTimeout(timeout.current);
-      }
-    };
   }, [endpoint, parent]);
   return {
     data: data || [],
