@@ -16,7 +16,7 @@ import {
 } from 'reducers/reducer.notifications';
 import { ComboBoxField } from '../../common/fields/field.ComboBox';
 import { getErrorMessages } from 'utilities/utilities.errors';
-import { modifyData } from 'reducers/reducer.data';
+import { modifyData, resetData } from 'reducers/reducer.data';
 import { AssignmentDTO } from 'dtos/dto.AssignmentDTO';
 import { UserDTO } from 'dtos/dto.UserDTO';
 import { useAppSelector } from 'hooks/hook.useAppSelector';
@@ -106,6 +106,18 @@ export const NewAssignmentPane = ({ feature }: INewAssignmentPane) => {
       }
     }
   }, [data, users]);
+  /**
+   * Reset the data if the pane is closed.
+   */
+  useEffect(() => {
+    return () => {
+      dispatch(
+        resetData({
+          endpoint,
+        })
+      );
+    };
+  }, []);
   return (
     <>
       <Columns columnsCount={1}>
