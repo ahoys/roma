@@ -24,8 +24,7 @@ const en: { [key: string]: string } = {
     'Archived items are not visible in listings or searches. Archive the item when the version is no longer relevant',
   value:
     'Describe the requirement concisely. What goal does the feature achieve with this requirement?',
-  fulfilled:
-    'The feature is ready when all the requirements set for it are met.',
+  fulfilled: 'This requirement has been met in its entirety.',
   functional: 'A requirement can be either functional or non-functional.',
   balance:
     'Does the importance of the feature lean towards keeping current customers or getting new ones?',
@@ -67,8 +66,7 @@ const fi: typeof en = {
   value:
     'Kuvaile vaatimus ytimekkäästi. Minkä tavoitteen ominaisuus saavuttaa ' +
     'tämän vaatimuksen myötä?',
-  fulfilled:
-    'Ominaisuus on valmis kun kaikki sille asetetut vaatimukset täyttyvät.',
+  fulfilled: 'Tämä vaatimus on kokonaisuudessaan täytetty.',
   functional: 'Vaatimus voi olla joko funktionaalinen tai ei-funktionaalinen.',
   balance:
     'Kallistuuko ominaisuuden merkitys nykyisten asiakkaiden pitämiseen, vai uusien saamiseen?',
