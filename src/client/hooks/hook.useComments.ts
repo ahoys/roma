@@ -14,18 +14,20 @@ type TSupportedComments = RequirementCommentDTO | AssignmentCommentDTO;
  */
 export const useComments = (
   parent: number | undefined,
-  endpoint: string | undefined,
-  clearMsg: (msg: string) => void
+  endpoint: string | undefined
 ): {
   data: TSupportedComments[];
   isLoading: boolean;
   editCommentId: number | undefined;
+  message: string;
+  setMessage: (msg: string) => void;
   handleSendComment: (comment: string) => void;
   handleEditComment: (id: number, comment: string) => void;
   handleRemoveComment: (id: number) => void;
   handleSetEditCommentId: (editCommentId: number | undefined) => void;
 } => {
   const dispatch = useAppDispatch();
+  const [message, setMessage] = useState('');
   const [data, setData] = useState<TSupportedComments[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [editCommentId, setEditCommentId] = useState<number | undefined>(
@@ -63,7 +65,7 @@ export const useComments = (
       .post(config.api + endpoint, { parentId: parent, value: comment })
       .then(() => {
         handleFetchComments();
-        clearMsg('');
+        setMessage('');
       })
       .catch((err) => dispatch(setErrorNotifications(getErrorMessages(err))));
   };
@@ -79,7 +81,7 @@ export const useComments = (
       .then(() => {
         setEditCommentId(undefined);
         handleFetchComments();
-        clearMsg('');
+        setMessage('');
       })
       .catch((err) => dispatch(setErrorNotifications(getErrorMessages(err))));
   };
@@ -117,6 +119,8 @@ export const useComments = (
     data,
     isLoading,
     editCommentId,
+    message,
+    setMessage,
     handleSendComment,
     handleEditComment,
     handleRemoveComment,

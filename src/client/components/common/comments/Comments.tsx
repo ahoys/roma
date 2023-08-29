@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons/faPaperPlane';
 import { IconTextButton } from '../buttons/button.IconTextButton';
@@ -108,16 +108,17 @@ interface IComments {
 
 export const Comments = ({ parent, endpoint }: IComments) => {
   const str = useStrings();
-  const [msg, setMsg] = useState('');
   const {
     data,
     isLoading,
     editCommentId,
+    message,
+    setMessage,
     handleSendComment,
     handleEditComment,
     handleRemoveComment,
     handleSetEditCommentId,
-  } = useComments(parent, endpoint, setMsg);
+  } = useComments(parent, endpoint);
   const id = `Comments:${endpoint}`;
   return (
     <Label
@@ -132,10 +133,10 @@ export const Comments = ({ parent, endpoint }: IComments) => {
           <TextAreaInput
             id={`${id}:TextAreaInput`}
             title={str.inputs.write_comment}
-            value={msg}
+            value={message}
             readonly={isLoading}
             placeholder={str.inputs.write_comment}
-            onChange={setMsg}
+            onChange={setMessage}
           />
           <StyledActions>
             {editCommentId !== undefined && (
@@ -143,7 +144,7 @@ export const Comments = ({ parent, endpoint }: IComments) => {
                 name={str.buttons.cancel}
                 icon={faTimes}
                 onClick={() => {
-                  setMsg('');
+                  setMessage('');
                   handleSetEditCommentId(undefined);
                 }}
               />
@@ -151,11 +152,11 @@ export const Comments = ({ parent, endpoint }: IComments) => {
             <IconTextButton
               name={editCommentId ? str.buttons.update : str.buttons.send}
               icon={editCommentId ? faRotate : faPaperPlane}
-              disabled={isLoading || !msg?.trim()}
+              disabled={isLoading || !message?.trim()}
               onClick={
                 editCommentId !== undefined
-                  ? () => handleEditComment(editCommentId, msg)
-                  : () => handleSendComment(msg)
+                  ? () => handleEditComment(editCommentId, message)
+                  : () => handleSendComment(message)
               }
             />
           </StyledActions>
@@ -184,7 +185,7 @@ export const Comments = ({ parent, endpoint }: IComments) => {
                       title={str.buttons.edit}
                       onClick={() => {
                         handleSetEditCommentId(comment._id);
-                        setMsg(comment.value);
+                        setMessage(comment.value);
                       }}
                     >
                       <FontAwesomeIcon icon={faEdit} />
