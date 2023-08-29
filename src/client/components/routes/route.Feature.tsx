@@ -84,8 +84,9 @@ export const Feature = () => {
             endpoint={endpoint}
             fieldKey={'version'}
             selected={
-              versionOptions.find((v) => v.id === data?.versionId)?.id ||
-              data?.version?._id
+              data?.versionId !== undefined
+                ? versionOptions.find((v) => v.id === data?.versionId)?.id
+                : data?.version?._id
             }
             options={versionOptions}
             canNull={true}
