@@ -20,6 +20,7 @@ interface INumberField extends IField {
 export const NumberField = ({
   endpoint,
   fieldKey,
+  fieldKeyModified,
   disabled,
   readonly,
   value = 0,
@@ -55,7 +56,7 @@ export const NumberField = ({
   return (
     <Label
       endpoint={endpoint}
-      fieldKey={fieldKey}
+      fieldKey={fieldKeyModified ?? fieldKey}
       htmlFor={htmlFor}
       name={label}
       description={description}

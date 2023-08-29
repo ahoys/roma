@@ -21,6 +21,7 @@ interface ISliderField extends IField {
 export const SliderField = ({
   endpoint,
   fieldKey,
+  fieldKeyModified,
   disabled,
   readonly,
   value,
@@ -57,7 +58,7 @@ export const SliderField = ({
   return (
     <Label
       endpoint={endpoint}
-      fieldKey={fieldKey}
+      fieldKey={fieldKeyModified ?? fieldKey}
       htmlFor={htmlFor}
       name={label}
       description={description}

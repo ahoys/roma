@@ -18,6 +18,7 @@ interface ITextAreaField extends IField {
 export const TextAreaField = ({
   endpoint,
   fieldKey,
+  fieldKeyModified,
   disabled,
   readonly,
   value = '',
@@ -51,7 +52,7 @@ export const TextAreaField = ({
   return (
     <Label
       endpoint={endpoint}
-      fieldKey={fieldKey}
+      fieldKey={fieldKeyModified ?? fieldKey}
       htmlFor={htmlFor}
       name={label}
       description={description}

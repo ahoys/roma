@@ -20,6 +20,7 @@ interface IComboBoxField extends IField {
 export const ComboBoxField = ({
   endpoint,
   fieldKey,
+  fieldKeyModified,
   selected,
   options = [],
   placeholder,
@@ -55,7 +56,7 @@ export const ComboBoxField = ({
   return (
     <Label
       endpoint={endpoint}
-      fieldKey={fieldKey}
+      fieldKey={fieldKeyModified ?? fieldKey}
       htmlFor={htmlFor}
       name={label}
       description={description}

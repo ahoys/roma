@@ -19,6 +19,7 @@ interface IButtonsField extends IField {
 export const ButtonsField = ({
   endpoint,
   fieldKey,
+  fieldKeyModified,
   selected,
   options = [],
   disabled,
@@ -52,7 +53,7 @@ export const ButtonsField = ({
   return (
     <Label
       endpoint={endpoint}
-      fieldKey={fieldKey}
+      fieldKey={fieldKeyModified ?? fieldKey}
       htmlFor={htmlFor}
       name={label}
       description={description}

@@ -17,6 +17,7 @@ interface ISwitchField extends IField {
 export const SwitchField = ({
   endpoint,
   fieldKey,
+  fieldKeyModified,
   disabled,
   readonly,
   value,
@@ -49,7 +50,7 @@ export const SwitchField = ({
   return (
     <Label
       endpoint={endpoint}
-      fieldKey={fieldKey}
+      fieldKey={fieldKeyModified ?? fieldKey}
       htmlFor={htmlFor}
       name={label}
       description={description}

@@ -83,6 +83,7 @@ export const Feature = () => {
           <ComboBoxField
             endpoint={endpoint}
             fieldKey={'version'}
+            fieldKeyModified={'versionId'}
             selected={
               data?.versionId !== undefined
                 ? versionOptions.find((v) => v.id === data?.versionId)?.id

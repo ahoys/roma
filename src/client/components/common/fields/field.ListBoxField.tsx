@@ -20,6 +20,7 @@ interface IListBoxField extends IField {
 export const ListBoxField = ({
   endpoint,
   fieldKey,
+  fieldKeyModified,
   selected,
   options = [],
   placeholder,
@@ -54,7 +55,7 @@ export const ListBoxField = ({
   return (
     <Label
       endpoint={endpoint}
-      fieldKey={fieldKey}
+      fieldKey={fieldKeyModified ?? fieldKey}
       htmlFor={htmlFor}
       name={label}
       description={description}
