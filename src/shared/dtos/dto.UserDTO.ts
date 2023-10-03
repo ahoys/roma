@@ -25,6 +25,10 @@ export class UserDTO extends ModelDTO {
   roadmapIds?: RoadmapDTO['_id'][];
   roadmaps?: RoadmapDTO[];
 
+  @IsInt()
+  @IsOptional()
+  roadmapId?: RoadmapDTO['_id'];
+
   assignments?: AssignmentDTO[];
 
   constructor(partial: Partial<UserDTO> = {}) {
