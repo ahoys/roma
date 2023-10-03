@@ -1,8 +1,6 @@
 import config from '../server.config';
 import passport from 'passport';
 import { Application } from 'express';
-import { User } from '../models/model.User';
-import { print } from 'logscribe';
 import { isAuthenticated } from './resolvers.Passport';
 
 /**
@@ -39,25 +37,4 @@ export const resolversAADOAuth2 = (app: Application): void => {
   app.get(config.api + 'verify', isAuthenticated, (req, res) =>
     res.status(200).end()
   );
-
-  /**
-   * Block all access to API that is not authorized by OAuth.
-   * Note that the page itself should still be accessible.
-   */
-  app.use(config.api, (req, res, next) => {
-    try {
-      const user = req.user as User;
-      if (
-        (user && user.admin === true) ||
-        (config.isDevelopment && config.oauth.overrideAccess)
-      ) {
-        next();
-      } else {
-        res.status(401).end();
-      }
-    } catch (error) {
-      print(error);
-      res?.status(401).end();
-    }
-  });
 };
