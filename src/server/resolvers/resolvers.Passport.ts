@@ -20,7 +20,7 @@ export const isAuthenticated = (
     return next();
   }
   const user = req.user as User;
-  if (user && user.admin) {
+  if (user) {
     next();
   } else {
     res.status(401).end();

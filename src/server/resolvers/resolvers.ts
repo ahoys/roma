@@ -29,8 +29,12 @@ export const commonCreateResolver = <T>({
 }: ICreate<T>) =>
   server.post(config.api + endpoint, async (req, res, next) => {
     try {
+      const user = await User.findOneBy({ _id: (req.user as User)?._id });
+      if (!user?.admin) {
+        // Only admins can make changes.
+        return res.status(401).end();
+      }
       if (options?.readRequestUserToBody) {
-        const user = await User.findOneBy({ _id: (req.user as User)?._id });
         req.body = { ...req.body, user };
       }
       const validationErrors = await validator(Dto, req.body);
@@ -147,6 +151,11 @@ export const commonUpdateResolver = <T, K>({
 }: IUpdate<T, K>) => {
   server.put(config.api + endpoint, async (req, res, next) => {
     try {
+      const user = await User.findOneBy({ _id: (req.user as User)?._id });
+      if (!user?.admin) {
+        // Only admins can make changes.
+        return res.status(401).end();
+      }
       if (options?.stripUserFromBody) {
         delete req.body.user;
       }
@@ -202,6 +211,11 @@ export const commonDeleteResolver = <T>({
 }: IDelete<T>) => {
   server.delete(config.api + endpoint, async (req, res, next) => {
     try {
+      const user = await User.findOneBy({ _id: (req.user as User)?._id });
+      if (!user?.admin) {
+        // Only admins can make changes.
+        return res.status(401).end();
+      }
       const repository = ds.getRepository(Model);
       const entity = await repository.findOne(findOneOptions(req));
       if (entity) {
