@@ -23,11 +23,14 @@ const production = {
     language: '__Secure-roma_language',
   },
   oauth: {
-    apiAuthenticate: publicPath + 'google',
-    apiCallback: publicPath + 'auth/google/callback',
-    clientId: process.env.OAUTH_CLIENTID || '',
-    callbackURL: process.env.OAUTH_CALLBACKURL || '',
+    authBy: process.env.OAUTH_AUTHBY === 'google' ? 'google' : 'aad',
     overrideAccess: false,
+    google: {
+      apiAuthenticate: publicPath + 'google',
+    },
+    aad: {
+      apiAuthenticate: publicPath + 'aad',
+    },
   },
   localStorage: {
     roadmap: 'roadmap',
@@ -45,9 +48,6 @@ const development: typeof production = {
   },
   oauth: {
     ...production.oauth,
-    callbackURL:
-      process.env.OAUTH_CALLBACKURL ||
-      'https://localhost:9216/auth/google/callback',
     overrideAccess: process.env.OAUTH_OVERRIDEACCESS === 'true',
   },
 };

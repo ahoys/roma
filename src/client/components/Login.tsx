@@ -32,6 +32,10 @@ const StyledActions = styled.div`
 
 export const Login = () => {
   const str = useStrings();
+  const oauthConfig =
+    config.oauth.authBy === 'google'
+      ? config.oauth.google
+      : config.oauth.aad;
   return (
     <StyledLogin>
       <StyledLoginContainer>
@@ -39,7 +43,7 @@ export const Login = () => {
         <h2>{str.login.h2}</h2>
         <p>{str.login.p}</p>
         <StyledActions>
-          <a href={config.oauth.apiAuthenticate}>{str.login.a_login}</a>
+          <a href={oauthConfig.apiAuthenticate}>{str.login.a_login}</a>
         </StyledActions>
       </StyledLoginContainer>
     </StyledLogin>

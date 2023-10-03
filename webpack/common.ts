@@ -91,10 +91,8 @@ export const clientPlugins = [
     NODE_ENV: null, // null means optional.
     PUBLICPATH: null,
     API: null,
-    OAUTH_OVERRIDEACCESS: null,
-    OAUTH_CLIENTID: undefined, // undefined means mandatory.
-    OAUTH_CALLBACKURL: undefined,
     COOKIES_DOMAIN: undefined,
+    OAUTH_BY: undefined,
   }),
   new webpack.ProvidePlugin({
     process: 'process/browser',

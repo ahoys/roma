@@ -41,6 +41,7 @@
     "./src/**/*.d.ts",
     "./webpack/**/*",
     "stats-webpack-plugin.d.ts",
+    "passport-azure-ad-oauth2.d.ts"
   ],
   "exclude": [
     "node_modules",

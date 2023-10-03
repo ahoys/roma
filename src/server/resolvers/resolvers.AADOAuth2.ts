@@ -6,18 +6,16 @@ import { print } from 'logscribe';
 import { isAuthenticated } from './resolvers.Passport';
 
 /**
- * Google OAuth related resolvers and authenticators.
+ * Microsoft AAD related resolvers and authenticators.
  */
-export const resolversGoogleOauth2 = (app: Application): void => {
+export const resolversAADOAuth2 = (app: Application): void => {
   /**
    * Start the OAuth process as the client enters
    * apiAuthenticate.
    */
   app.get(
-    config.oauth.google.apiAuthenticate,
-    passport.authenticate('google', {
-      scope: ['profile'],
-    })
+    config.oauth.aad.apiAuthenticate,
+    passport.authenticate('azure_ad_oauth2')
   );
 
   /**
@@ -26,8 +24,10 @@ export const resolversGoogleOauth2 = (app: Application): void => {
    * successful new OAuth authorization.
    */
   app.get(
-    config.oauth.google.apiCallback,
-    passport.authenticate('google'),
+    config.oauth.aad.apiCallback,
+    passport.authenticate('azure_ad_oauth2', {
+      failureRedirect: config.publicPath,
+    }),
     (req, res) => {
       res.redirect(config.publicPath);
     }

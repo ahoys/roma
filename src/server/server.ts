@@ -18,7 +18,8 @@ import csurf from 'csurf';
 import config from './server.config';
 import { urlencoded, json } from 'body-parser';
 import { DataSource } from 'typeorm';
-import { resolversOauth } from './resolvers/resolvers.Oauth';
+import { resolversGoogleOauth2 } from './resolvers/resolvers.Oauth';
+import { resolversAADOAuth2 } from './resolvers/resolvers.AADOAuth2';
 import { resolversUser } from './resolvers/resolvers.User';
 import { resolversPassport } from './resolvers/resolvers.Passport';
 import { User } from './models/model.User';
@@ -43,7 +44,6 @@ import { requirementResolvers } from './resolvers/resolvers.Requirement';
 import { requirementCommentResolvers } from './resolvers/resolvers.RequirementComment';
 import { assignmentResolvers } from './resolvers/resolvers.Assignment';
 import { assignmentCommentResolvers } from './resolvers/resolvers.AssignmentComment';
-import { createMockupTables } from './utilities/utilities.db';
 import {
   cookieResolvers,
   defaultCookieOptions,
@@ -100,7 +100,8 @@ print(config);
         });
       }
       resolversPassport(app);
-      resolversOauth(app);
+      resolversGoogleOauth2(app);
+      resolversAADOAuth2(app);
       resolversUser(app, ds);
       cookieResolvers(app);
       roadmapResolvers(app, ds);

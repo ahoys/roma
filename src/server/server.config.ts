@@ -33,7 +33,21 @@ const production = {
   },
   oauth: {
     ...clientConfig.oauth,
-    clientSecret: process.env.OAUTH_CLIENTSECRET || '',
+    google: {
+      ...clientConfig.oauth.google,
+      apiCallback: process.env.OAUTH_APICALLBACK || '',
+      clientId: process.env.OAUTH_CLIENTID || '',
+      clientSecret: process.env.OAUTH_SECRET || '',
+      callbackURL: process.env.OAUTH_CALLBACKURL || '',
+    },
+    aad: {
+      ...clientConfig.oauth.aad,
+      apiCallback: process.env.OAUTH_APICALLBACK || '',
+      clientId: process.env.OAUTH_CLIENTID || '',
+      tenantId: process.env.OAUTH_TENANTID || '',
+      clientSecret: process.env.OAUTH_SECRET || '',
+      callbackURL: process.env.OAUTH_CALLBACKURL || '',
+    },
   },
   ssl: {
     crtPath: process.env.SSL_CRTPATH,
