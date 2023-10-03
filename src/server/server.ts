@@ -99,9 +99,15 @@ print(config);
           next();
         });
       }
-      resolversPassport(app);
-      resolversGoogleOauth2(app);
-      resolversAADOAuth2(app);
+      // OAuth2 will be enabled only if
+      // the configuration is set.
+      if (config.oauth.authBy === 'google') {
+        resolversPassport(app);
+        resolversGoogleOauth2(app);
+      } else if (config.oauth.authBy === 'aad') {
+        resolversPassport(app);
+        resolversAADOAuth2(app);
+      }
       resolversUser(app, ds);
       cookieResolvers(app);
       roadmapResolvers(app, ds);

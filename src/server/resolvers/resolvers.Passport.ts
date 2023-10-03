@@ -20,7 +20,7 @@ export const isAuthenticated = (
     return next();
   }
   const user = req.user as User;
-  if (user && user.admin === true) {
+  if (user) {
     next();
   } else {
     res.status(401).end();
@@ -34,6 +34,7 @@ const commonCallback = async (
 ) => {
   try {
     const user = await User.findOneBy({ oauthId: id });
+    console.log(id, displayName, user);
     if (user) {
       // User found, access granted.
       return cb(null, user);
@@ -54,14 +55,15 @@ const commonCallback = async (
         return cb(null, master);
       } else {
         // Scenario 2.
-        // Master already exists. No access.
-        // Add the user to the potential users.
-        const noaccess = new User();
-        noaccess.name = displayName;
-        noaccess.oauthId = id;
-        noaccess.admin = false;
-        await User.save(noaccess);
-        return cb(null, noaccess);
+        // Master already exists.
+        // Add a read-only user.
+        const readonlyUser = new User();
+        readonlyUser.name = displayName;
+        readonlyUser.oauthId = id;
+        readonlyUser.admin = false;
+        await User.save(readonlyUser);
+        print('Created a new read-only user:', readonlyUser.name);
+        return cb(null, readonlyUser);
       }
     }
   } catch (error) {
