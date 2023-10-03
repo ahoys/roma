@@ -92,7 +92,7 @@ export const clientPlugins = [
     PUBLICPATH: null,
     API: null,
     COOKIES_DOMAIN: undefined,
-    OAUTH_BY: undefined,
+    OAUTH_AUTHBY: undefined,
   }),
   new webpack.ProvidePlugin({
     process: 'process/browser',
