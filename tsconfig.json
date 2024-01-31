@@ -36,7 +36,7 @@
     "require": ["tsconfig-paths/register"]
   },
   "include": [
-    "./src/client/**/*.tsx",
+    "./src/**/*.tsx",
     "./src/**/*.ts",
     "./src/**/*.d.ts",
     "./webpack/**/*",

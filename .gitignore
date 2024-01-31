@@ -1,5 +1,6 @@
 dist
 node_modules
-yarn-error.log
+.vscode
+*.log
 *.env
 *.zip

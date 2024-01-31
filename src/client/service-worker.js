@@ -47,7 +47,7 @@ registerRoute(
  */
 registerRoute(
   ({ url }) =>
-    url.pathname.startsWith(config.publicPath + 'yarn.') ||
+    url.pathname.startsWith(config.publicPath + 'npm.') ||
     url.pathname.startsWith(config.publicPath + 'client.'),
   new CacheFirst({
     cacheName: cacheNames.precache,

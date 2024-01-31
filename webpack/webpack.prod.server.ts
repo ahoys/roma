@@ -11,6 +11,7 @@ import {
 } from './common';
 import DotEnvWebpack from 'dotenv-webpack';
 import ExcludeExternals from 'webpack-node-externals';
+import LoadablePlugin from '@loadable/webpack-plugin';
 
 export default {
   name: 'server',
@@ -46,6 +47,7 @@ export default {
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
     }),
+    new LoadablePlugin(),
   ],
   node: {
     __dirname: false,

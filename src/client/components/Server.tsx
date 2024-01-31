@@ -1,6 +1,5 @@
 import React from 'react';
 import express from 'express';
-import flushChunks from 'webpack-flush-chunks';
 import ReactDOMServer from 'react-dom/server';
 import serialize from 'serialize-javascript';
 import {
@@ -10,11 +9,11 @@ import {
 import config from 'config';
 import { StaticRouter } from 'react-router-dom/server';
 import { ServerStyleSheet } from 'styled-components';
+import { ChunkExtractor } from '@loadable/server';
 import { Provider } from 'react-redux';
 import { baseTheme } from '../theme';
 import { Stats } from 'webpack';
 import { createStore } from '../store';
-import { clearChunks, flushChunkNames } from 'react-universal-component/server';
 import { App } from './App';
 import {
   ISessionState,
@@ -57,19 +56,16 @@ export default ({ clientStats, nonce }: IServer) =>
         theme: theme || defaultDeviceState.theme,
       };
       const store = createStore({ session, data, device });
-      const client = ReactDOMServer.renderToString(
-        sheet.collectStyles(
-          <Provider store={store}>
-            <StaticRouter location={req.url}>
-              <App />
-            </StaticRouter>
-          </Provider>
-        )
+      const extractor = new ChunkExtractor({ stats: clientStats });
+      const jsx = extractor.collectChunks(
+        <Provider store={store}>
+          <StaticRouter location={req.url}>
+            <App />
+          </StaticRouter>
+        </Provider>
       );
-      clearChunks();
-      const { js } = flushChunks(clientStats, {
-        chunkNames: flushChunkNames(),
-      });
+      const html = ReactDOMServer.renderToString(sheet.collectStyles(jsx));
+      const scriptTags = extractor.getScriptTags();
       res.send(`
         <!doctype html>
         <html lang="en">
@@ -100,7 +96,7 @@ export default ({ clientStats, nonce }: IServer) =>
             <style type="text/css">${baseTheme}</style>
           </head>
           <body>
-            <div id="client">${client}</div>
+            <div id="client">${html}</div>
             <script nonce="${nonce}" type="text/javascript">
               window.__PRELOADED_STATE__ = ${serialize(store.getState())}
             </script>
@@ -121,7 +117,7 @@ export default ({ clientStats, nonce }: IServer) =>
                     }
                   </script>`
             }
-            ${js}
+            ${scriptTags}
           </body>
         </html>
       `);

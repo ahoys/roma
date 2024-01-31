@@ -8,6 +8,7 @@ import {
   svgRule,
   alias,
 } from './common';
+import LoadablePlugin from '@loadable/webpack-plugin';
 
 process.traceDeprecation = true;
 
@@ -39,5 +40,6 @@ export default {
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
     }),
+    new LoadablePlugin(),
   ],
 };

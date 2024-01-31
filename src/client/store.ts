@@ -1,3 +1,4 @@
+import config from 'config';
 import logger from 'redux-logger';
 import session from './reducers/reducer.session';
 import device from './reducers/reducer.device';
@@ -6,7 +7,6 @@ import modals from './reducers/reducer.modals';
 import pane from './reducers/reducer.pane';
 import notifications from './reducers/reducer.notifications';
 import comments from './reducers/reducer.comments';
-import config from 'config';
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers, DeepPartial } from 'redux';
 
@@ -28,7 +28,8 @@ export const createStore = (initialState?: DeepPartial<typeof reducer>) =>
     devTools: config.isDevelopment,
     preloadedState: initialState,
     middleware: config.isDevelopment
-      ? (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ? (getDefaultMiddleware) => getDefaultMiddleware().concat(logger as any)
       : undefined,
   });
 

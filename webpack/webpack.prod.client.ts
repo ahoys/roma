@@ -113,7 +113,7 @@ export default {
             const packageName = module.context.match(
               /[\\/]node_modules[\\/](.*?)([\\/]|$)/
             )[1];
-            return `yarn.${packageName.replace('@', '')}`;
+            return `npm.${packageName.replace('@', '')}`;
           },
         },
       },

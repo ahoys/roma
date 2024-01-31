@@ -1,36 +1,36 @@
 # Commands
 
-> `yarn build`
+> `npm build`
 
 Builds the production ready environment.
 
 - Should be ran every time `.env` is altered.
 
-> `yarn start`
+> `npm start`
 
 Starts the server in production.
 
 - `.env` is used to read environment variables.
 
-> `yarn watch`
+> `npm watch`
 
 Starts the server in development.
 
 - `.dev.env` is used to read environment variables.
 
-> `yarn test`
+> `npm test`
 
 Tests the TypeScript-typings and runs Jest.
 
 - Should be used with CI/CD.
 
-> `yarn jest`
+> `npm jest`
 
 Runs only Jest.
 
-- To run a singular test-file, run: `yarn jest <name of the test-file>`
+- To run a singular test-file, run: `npm jest <name of the test-file>`
 
-> `yarn lint`
+> `npm lint`
 
 Lints (formats) the code.
 

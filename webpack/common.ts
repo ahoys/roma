@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 import path from 'path';
 import DotEnv from 'dotenv';
+import LoadablePlugin from '@loadable/webpack-plugin';
 
 DotEnv.config();
 
@@ -101,4 +102,5 @@ export const clientPlugins = [
     // Must always be true.
     'process.env.ISBROWSER': JSON.stringify(true),
   }),
+  new LoadablePlugin(),
 ];
