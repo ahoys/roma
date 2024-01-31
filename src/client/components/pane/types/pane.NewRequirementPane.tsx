@@ -17,7 +17,7 @@ import { getErrorMessages } from 'utilities/utilities.errors';
 import { TextField } from 'components/common/fields/field.TextField';
 import { RequirementDTO } from 'dtos/dto.RequirementDTO';
 import { SwitchField } from 'components/common/fields/field.SwitchField';
-import { resetData } from 'reducers/reducer.data';
+import { resetData, setDefaultData } from 'reducers/reducer.data';
 
 const endpoint = 'requirements/0';
 
@@ -49,6 +49,9 @@ export const NewRequirementPane = ({ feature }: INewRequirementPane) => {
    * Reset the data if the pane is closed.
    */
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const defaultData: any = { functional: true };
+    dispatch(setDefaultData({ endpoint, data: defaultData }));
     return () => {
       dispatch(
         resetData({

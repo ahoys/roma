@@ -394,6 +394,22 @@ export const slice = createSlice({
       });
     },
     /**
+     * Sets default data.
+     */
+    setDefaultData: (state, action: PayloadAction<{ endpoint: string, data: IData }>) => {
+      const original = state.original[action.payload.endpoint];
+      state.merged = produce(state.merged, (draftMerged) => {
+          if (original) {
+            draftMerged[action.payload.endpoint] = {...original, ...action.payload.data};
+          } else {
+            draftMerged[action.payload.endpoint] = action.payload.data;
+          }
+      });
+      state.modified = produce(state.modified, (draftModified) => {
+        draftModified[action.payload.endpoint] = action.payload.data;
+      });
+    },
+    /**
      * Sets a list.
      */
     setList: (
@@ -428,6 +444,6 @@ export const slice = createSlice({
   },
 });
 
-export const { setRoadmap } = slice.actions;
+export const { setRoadmap, setDefaultData } = slice.actions;
 
 export default slice.reducer;
