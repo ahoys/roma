@@ -39,6 +39,10 @@ export const versionResolvers = (server: Application, ds: DataSource) => {
           _id: getIntFromObject('roadmap', req.query),
         },
       },
+      order: {
+        major: 'ASC',
+        minor: 'ASC',
+      },
       relations: {
         features: {
           assignments: true,
