@@ -53,6 +53,7 @@ export const gitLabResolvers = (server: Application) => {
       const comments = await RequirementComment.find({
         where: {
           requirement: {
+            _id: requirement._id,
             feature: {
               _id: feature._id,
             },
