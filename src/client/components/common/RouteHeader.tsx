@@ -6,6 +6,9 @@ const StyledRouteHeader = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  h1 {
+    width: 100%;
+  }
 `;
 
 interface IRouteHeader {

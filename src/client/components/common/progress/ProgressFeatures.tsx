@@ -71,6 +71,9 @@ const StyledFeatureTags = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   gap: ${({ theme }) => theme.gap.normal};
+  h3 {
+    max-width: 100%;
+  }
 `;
 
 interface IProgressFeatures {
