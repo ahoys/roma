@@ -65,6 +65,7 @@ export const SliderField = ({
     >
       <SliderInput
         id={htmlFor}
+        key={htmlFor}
         value={value}
         min={min}
         max={max}
