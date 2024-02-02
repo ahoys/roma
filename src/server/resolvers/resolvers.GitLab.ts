@@ -163,12 +163,7 @@ export const gitLabResolvers = (server: Application) => {
             products: {
               gitlabId: true,
             },
-            requirements: {
-              value: true,
-              comments: {
-                value: true,
-              },
-            },
+            requirements: true,
           },
         });
         const accessToken = feature?.version?.roadmap?.gitlabAccessToken;
