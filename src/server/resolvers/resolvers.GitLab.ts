@@ -2,7 +2,6 @@ import config from '../server.config';
 import axios from 'axios';
 import { validator, getIntFromObject } from '../utilities/utilities.resolvers';
 import { User } from '../models/model.User';
-import { RequirementComment } from '../models/model.RequirementComment';
 import { Application, Request } from 'express';
 import { Feature } from '../models/model.Feature';
 import { GitLabFeatureDTO } from 'dtos/dto.GitLabDTO';
@@ -50,22 +49,7 @@ export const gitLabResolvers = (server: Application) => {
     description += '\n\n## Requirements\n';
     for (const requirement of feature.requirements || []) {
       description += '- [ ] ' + requirement.value + '\n';
-      const comments = await RequirementComment.find({
-        where: {
-          requirement: {
-            _id: requirement._id,
-            feature: {
-              _id: feature._id,
-            },
-          },
-        },
-        relations: {
-          requirement: true,
-        },
-        select: {
-          value: true,
-        },
-      });
+      const comments = requirement.comments || [];
       if (comments.length) {
         comments.forEach((comment) => {
           description += '  - ' + comment.value + '\n';
@@ -181,6 +165,9 @@ export const gitLabResolvers = (server: Application) => {
             },
             requirements: {
               value: true,
+              comments: {
+                value: true,
+              },
             },
           },
         });
