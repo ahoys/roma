@@ -6,8 +6,14 @@ import { faSave } from '@fortawesome/free-solid-svg-icons/faSave';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { faUndo } from '@fortawesome/free-solid-svg-icons/faUndo';
 import { faBackwardStep } from '@fortawesome/free-solid-svg-icons/faBackwardStep';
+import { faFileExport } from '@fortawesome/free-solid-svg-icons/faFileExport';
 import { useAppDispatch } from 'hooks/hook.useAppDispatch';
-import { getData, resetData, saveData } from 'reducers/reducer.data';
+import {
+  exportDataToGitLab,
+  getData,
+  resetData,
+  saveData,
+} from 'reducers/reducer.data';
 import { useNavigate } from 'react-router-dom';
 import { useStrings } from 'hooks/hook.useStrings';
 import { setNotification } from 'reducers/reducer.notifications';
@@ -129,6 +135,15 @@ export const SaveBar = ({ endpoint, resource }: ISaveBar) => {
           ),
       })
     );
+  /**
+   * Exports the given item to GitLab.
+   */
+  const handleExportToGitLab = () =>
+    dispatch(
+      exportDataToGitLab({
+        endpoint,
+      })
+    );
   return (
     <StyledSaveBar isMobile={isMobile}>
       {hasBackButton && (
@@ -156,6 +171,13 @@ export const SaveBar = ({ endpoint, resource }: ISaveBar) => {
         disabled={!modified}
         onClick={handleSaveData}
       />
+      {config.features.gitlab && (
+        <IconTextButton
+          name={str.buttons.exportToGitLab}
+          icon={faFileExport}
+          onClick={handleExportToGitLab}
+        />
+      )}
     </StyledSaveBar>
   );
 };

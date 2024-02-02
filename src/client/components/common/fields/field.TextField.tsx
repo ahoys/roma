@@ -8,6 +8,7 @@ import { Label } from '../Label';
 
 interface ITextField extends IField {
   value: string | undefined;
+  type?: 'text' | 'password';
   placeholder?: string;
   onChange?: (newValue: string) => void;
 }
@@ -22,6 +23,7 @@ export const TextField = ({
   disabled,
   readonly,
   value = '',
+  type = 'text',
   placeholder,
   onChange,
 }: ITextField) => {
@@ -61,6 +63,7 @@ export const TextField = ({
         <TextInput
           id={htmlFor}
           value={value}
+          type={type}
           placeholder={placeholder ?? label}
           title={label}
           disabled={disabled}

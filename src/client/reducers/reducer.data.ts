@@ -306,6 +306,36 @@ export const resetData = createAsyncThunk(
   }
 );
 
+export const exportDataToGitLab = createAsyncThunk(
+  'data/gitlab/issues',
+  async (
+    payload: {
+      endpoint: string;
+      onSuccess?: () => void;
+      onFailure?: (error: AxiosError) => void;
+    },
+    thunkAPI
+  ) => {
+    const state = (thunkAPI.getState() as TRootState).data;
+    const merged = state.merged[payload.endpoint];
+    if (merged && config.features.gitlab) {
+      axios({
+        method: 'POST',
+        url: config.api + 'gitlab/issues',
+        data: {
+          featureId: merged._id,
+        },
+      })
+        .then(() => {
+          if (payload.onSuccess) payload.onSuccess();
+        })
+        .catch((err: AxiosError) => {
+          if (payload.onFailure) payload.onFailure(err);
+        });
+    }
+  }
+);
+
 export const slice = createSlice({
   name: 'data',
   initialState,
@@ -396,14 +426,20 @@ export const slice = createSlice({
     /**
      * Sets default data.
      */
-    setDefaultData: (state, action: PayloadAction<{ endpoint: string, data: IData }>) => {
+    setDefaultData: (
+      state,
+      action: PayloadAction<{ endpoint: string; data: IData }>
+    ) => {
       const original = state.original[action.payload.endpoint];
       state.merged = produce(state.merged, (draftMerged) => {
-          if (original) {
-            draftMerged[action.payload.endpoint] = {...original, ...action.payload.data};
-          } else {
-            draftMerged[action.payload.endpoint] = action.payload.data;
-          }
+        if (original) {
+          draftMerged[action.payload.endpoint] = {
+            ...original,
+            ...action.payload.data,
+          };
+        } else {
+          draftMerged[action.payload.endpoint] = action.payload.data;
+        }
       });
       state.modified = produce(state.modified, (draftModified) => {
         draftModified[action.payload.endpoint] = action.payload.data;

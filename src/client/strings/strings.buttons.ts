@@ -18,6 +18,7 @@ const en = {
   confirm: 'Confirm',
   cancel: 'Cancel',
   selectRoadmap: 'Select roadmap',
+  exportToGitLab: 'Export to GitLab',
 };
 
 const fi: typeof en = {
@@ -40,6 +41,7 @@ const fi: typeof en = {
   confirm: 'Vahvista',
   cancel: 'Peruuta',
   selectRoadmap: 'Valitse roadmap',
+  exportToGitLab: 'Vie GitLabiin',
 };
 
 export default { en, fi };

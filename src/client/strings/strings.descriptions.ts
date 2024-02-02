@@ -35,6 +35,8 @@ const en: { [key: string]: string } = {
   defaultRoadmapId:
     'The interface opens automatically to this roadmap when the user logs in.',
   roadmapIds: 'Show only the roadmaps you have signed up for here.',
+  gitlabAccessToken:
+    'Place your group-level GitLab access token here and save. The stored token will not be shown again.',
 };
 
 const fi: typeof en = {
@@ -78,6 +80,8 @@ const fi: typeof en = {
     'Käyttöliittymä avautuu tähän roadmapiin automaattisesti käyttäjän kirjautuessa sisään.',
   roadmapIds:
     'Näyt ainoastaan niiden roadmappien pudotuslistoilla joille olet ilmottautunut tässä.',
+  gitlabAccessToken:
+    'Aseta GitLabin group-tason accessToken tähän ja tallenna. Tallennettua tunnusta ei näytetä enää uudelleen.',
 };
 
 export default { en, fi };

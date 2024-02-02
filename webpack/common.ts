@@ -92,6 +92,7 @@ export const clientPlugins = [
     NODE_ENV: null, // null means optional.
     PUBLICPATH: null,
     API: null,
+    FEATURES_GITLAB: null,
     COOKIES_DOMAIN: undefined,
     OAUTH_AUTHBY: undefined,
   }),

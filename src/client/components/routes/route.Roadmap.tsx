@@ -1,4 +1,5 @@
 import React from 'react';
+import config from 'config';
 import { useMeta } from 'hooks/hook.useMeta';
 import { useData } from 'hooks/hook.useData';
 import { TextField } from '../common/fields/field.TextField';
@@ -17,6 +18,16 @@ export const Roadmap = () => {
       <Form endpoint={endpoint} resource={resource}>
         <Columns columnsCount={1}>
           <TextField endpoint={endpoint} fieldKey={'name'} value={data?.name} />
+          {config.features.gitlab ? (
+            <TextField
+              endpoint={endpoint}
+              fieldKey={'gitlabAccessToken'}
+              value={data?.gitlabAccessToken}
+              type={'password'}
+            />
+          ) : (
+            <></>
+          )}
         </Columns>
       </Form>
     </RouteContainer>

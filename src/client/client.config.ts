@@ -35,6 +35,9 @@ const production = {
   localStorage: {
     roadmap: 'roadmap',
   },
+  features: {
+    gitlab: process.env.FEATURES_GITLAB === 'true',
+  },
 };
 
 const development: typeof production = {

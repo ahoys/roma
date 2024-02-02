@@ -56,6 +56,7 @@ const production = {
   gitlab: {
     // For example https://gitlab.product.com
     url: process.env.GITLAB_URL || '',
+    // For example https://roma.product.com/roma
     romaUrl: process.env.GITLAB_ROMA_URL || '',
   }
 };

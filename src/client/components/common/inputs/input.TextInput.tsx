@@ -29,6 +29,7 @@ export const StyledTextInput = styled.input<IStyledTextInput>`
 interface ITextInput extends IInput {
   value: string;
   placeholder: string;
+  type: 'text' | 'password';
   onChange: (newValue: string) => void;
 }
 
@@ -42,6 +43,7 @@ export const TextInput = ({
   readonly,
   value,
   placeholder,
+  type,
   onChange,
 }: ITextInput) => {
   const timeoutRef = useRef<NodeJS.Timeout>();
@@ -80,7 +82,7 @@ export const TextInput = ({
   return (
     <StyledTextInput
       id={id}
-      type={'text'}
+      type={type}
       value={inputValue}
       placeholder={placeholder}
       disabled={disabled}
