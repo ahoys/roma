@@ -39,9 +39,14 @@ const StyledSaveBar = styled.div<IStyledSaveBar>`
 interface ISaveBar {
   endpoint: string;
   resource: string;
+  hasExportToGitLab?: boolean;
 }
 
-export const SaveBar = ({ endpoint, resource }: ISaveBar) => {
+export const SaveBar = ({
+  endpoint,
+  resource,
+  hasExportToGitLab,
+}: ISaveBar) => {
   const str = useStrings();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -171,13 +176,13 @@ export const SaveBar = ({ endpoint, resource }: ISaveBar) => {
         disabled={!modified}
         onClick={handleSaveData}
       />
-      {config.features.gitlab && (
+      {config.features.gitlab && hasExportToGitLab ? (
         <IconTextButton
           name={str.buttons.exportToGitLab}
           icon={faFileExport}
           onClick={handleExportToGitLab}
         />
-      )}
+      ) : null}
     </StyledSaveBar>
   );
 };

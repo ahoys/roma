@@ -77,7 +77,7 @@ export const Feature = () => {
   return (
     <RouteContainer>
       <RouteHeader endpoint={endpoint} />
-      <Form endpoint={endpoint} resource={resource}>
+      <Form endpoint={endpoint} resource={resource} hasExportToGitLab={true}>
         <Columns>
           <TextField endpoint={endpoint} fieldKey={'name'} value={data?.name} />
           <ComboBoxField

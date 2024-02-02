@@ -30,6 +30,7 @@ const en: { [key: string]: string } = {
   roadmapIds: 'My roadmaps',
   archival: 'Archival',
   gitlabAccessToken: 'GitLab accessToken',
+  gitlabId: 'GitLab ID',
 };
 
 const fi: typeof en = {
@@ -64,6 +65,7 @@ const fi: typeof en = {
   roadmapIds: 'Minun roadmapit',
   archival: 'Arkistointi',
   gitlabAccessToken: 'GitLabin accessToken',
+  gitlabId: 'GitLabin ID',
 };
 
 export default { en, fi };

@@ -19,12 +19,22 @@ const StyledFormContent = styled.div`
 interface IForm {
   endpoint: string;
   resource: string;
+  hasExportToGitLab?: boolean;
   children: JSX.Element | JSX.Element[] | undefined;
 }
 
-export const Form = ({ endpoint, resource, children }: IForm) => (
+export const Form = ({
+  endpoint,
+  resource,
+  hasExportToGitLab,
+  children,
+}: IForm) => (
   <StyledForm>
-    <SaveBar endpoint={endpoint} resource={resource} />
+    <SaveBar
+      endpoint={endpoint}
+      resource={resource}
+      hasExportToGitLab={hasExportToGitLab}
+    />
     <StyledFormContent>{children}</StyledFormContent>
   </StyledForm>
 );
