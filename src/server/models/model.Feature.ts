@@ -23,9 +23,6 @@ export class Feature extends Model implements FeatureDTO {
   @Column(defaultIntColumn)
   balance: number;
 
-  @Column({...defaultIntColumn, unique: true})
-  gitlabId?: number; // For GitLab etc.
-
   @ManyToMany(() => Product, { nullable: true })
   @JoinTable()
   products: Product[];
@@ -71,9 +68,6 @@ export class Feature extends Model implements FeatureDTO {
     }
     if (typeof partial.balance === 'number') {
       model.balance = partial.balance;
-    }
-    if (typeof partial.gitlabId === 'number') {
-      model.gitlabId = partial.gitlabId;
     }
     if (Array.isArray(partial.productIds)) {
       model.products = await Product.findBy({

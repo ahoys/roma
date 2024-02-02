@@ -1,4 +1,4 @@
-import { IsInt, IsNumber, IsOptional, Length, Max, Min } from 'class-validator';
+import { IsInt, IsOptional, Length, Max, Min } from 'class-validator';
 import { AssignmentDTO } from './dto.AssignmentDTO';
 import { ModelDTO } from './dto.ModelDTO';
 import { ProductDTO } from './dto.ProductDTO';
@@ -15,10 +15,6 @@ export class FeatureDTO extends ModelDTO {
   @Max(2)
   @IsOptional()
   balance: number;
-
-  @IsNumber()
-  @IsOptional()
-  gitlabId?: number; // For GitLab etc.
 
   @IsInt({ each: true })
   @IsOptional()
@@ -45,9 +41,6 @@ export class FeatureDTO extends ModelDTO {
     }
     if (typeof partial.balance === 'number') {
       this.balance = partial.balance;
-    }
-    if (typeof partial.gitlabId === 'number') {
-      this.gitlabId = partial.gitlabId;
     }
     if (Array.isArray(partial.productIds)) {
       this.productIds = partial.productIds;
