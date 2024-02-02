@@ -29,7 +29,7 @@ export const StyledTextInput = styled.input<IStyledTextInput>`
 interface ITextInput extends IInput {
   value: string;
   placeholder: string;
-  type: 'text' | 'password';
+  type?: 'text' | 'password';
   onChange: (newValue: string) => void;
 }
 

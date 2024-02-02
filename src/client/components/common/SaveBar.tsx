@@ -147,6 +147,29 @@ export const SaveBar = ({
     dispatch(
       exportDataToGitLab({
         endpoint,
+        onSuccess: () => {
+          dispatch(
+            setNotification({
+              id: 'handleExportToGitLab',
+              type: 'text',
+              icon: faFileExport,
+              value: str.notifications.exported,
+              created: new Date().getTime(),
+            })
+          );
+        },
+        onFailure: (err) => {
+          const code = err?.code ?? '';
+          dispatch(
+            setNotification({
+              id: 'handleExportToGitLab',
+              type: 'text',
+              icon: faFileExport,
+              value: str.notifications.export_failed + ` (${code})`,
+              created: new Date().getTime(),
+            })
+          );
+        },
       })
     );
   return (

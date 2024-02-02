@@ -6,6 +6,8 @@ const en = {
   changes_received: 'Content updated',
   authenticated: 'Authenticated',
   unauthenticated: 'Unauthenticated',
+  exported: 'Export done',
+  export_failed: 'Export failed',
 };
 
 const fi: typeof en = {
@@ -16,6 +18,8 @@ const fi: typeof en = {
   changes_received: 'Sisältö on päivittynyt',
   authenticated: 'Autentikoitu',
   unauthenticated: 'Autentikointi poistettu',
+  exported: 'Vienti valmis',
+  export_failed: 'Vienti epäonnistui',
 };
 
 export default { en, fi };

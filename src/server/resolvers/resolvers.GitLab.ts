@@ -48,26 +48,28 @@ export const gitLabResolvers = (server: Application) => {
     let description = `[${feature.name}](${linkToRoma})\n\n`;
     description += `**Target version:** ${feature.version?.major}.${feature.version?.minor}\n\n`;
     description += '\n\n## Requirements\n';
-    feature.requirements?.forEach((requirement) => {
+    for (const requirement of feature.requirements || []) {
       description += '- [ ] ' + requirement.value + '\n';
-    });
-    const comments = await RequirementComment.find({
-      where: {
-        requirement: {
-          feature: {
-            _id: feature._id,
+      const comments = await RequirementComment.find({
+        where: {
+          requirement: {
+            feature: {
+              _id: feature._id,
+            },
           },
         },
-      },
-      relations: {
-        requirement: true,
-      },
-    });
-    if (comments.length) {
-      description += '\n\n## Comments\n';
-      comments.forEach((comment) => {
-        description += '- ' + comment.value + '\n';
+        relations: {
+          requirement: true,
+        },
+        select: {
+          value: true,
+        },
       });
+      if (comments.length) {
+        comments.forEach((comment) => {
+          description += '  - ' + comment.value + '\n';
+        });
+      }
     }
     return description;
   };
