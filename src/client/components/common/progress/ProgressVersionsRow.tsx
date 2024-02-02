@@ -9,7 +9,7 @@ import { FeatureDTO } from 'dtos/dto.FeatureDTO';
 const StyledProgressVersionsRow = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.gap.large};
+  gap: ${({ theme }) => theme.gap.small};
 `;
 
 const StyledHeader = styled.div`
@@ -31,7 +31,7 @@ const StyledRWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: ${({ theme }) => theme.gap.normal};
+  gap: ${({ theme }) => theme.gap.small};
 `;
 
 const StyledDetails = styled.div`

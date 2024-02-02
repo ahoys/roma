@@ -178,9 +178,9 @@ export const baseTheme = `
     -webkit-text-fill-color: transparent;
   }
   h2 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 300;
-    line-height: 2.7rem;
+    line-height: 2.4rem;
     background: ${dark.special.nero};
     background-size: 180%;
     -webkit-background-clip: text;

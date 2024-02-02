@@ -33,7 +33,7 @@ const StyledFeature = styled.li<IStyledFeature>`
       : theme.background.feature_stage_2};
   color: ${({ theme }) => theme.color.feature};
   padding: ${({ theme }) => theme.gap.normal};
-  border-radius: ${({ theme }) => theme.gap.normal};
+  border-radius: ${({ theme }) => theme.gap.small};
   gap: ${({ theme }) => theme.gap.normal};
 `;
 
@@ -129,15 +129,16 @@ export const ProgressFeatures = ({ version }: IProgressFeatures) => {
           key={f._id}
           onClick={() => handleEditFeature(f)}
         >
-          <h3>{f.name}</h3>
           <StyledFeatureTags>
-            <p>{getDescription(f)}</p>
+            <h3>{f.name}</h3>
             {!!f.requirements?.length && <p>{`${getProgress(f)} %`}</p>}
           </StyledFeatureTags>
-          {!!f.requirements?.length && (
+          {f.requirements?.length ? (
             <StyledFeatureProgress>
               <StyledFeatureProgressBar width={getProgress(f)} />
             </StyledFeatureProgress>
+          ) : (
+            <p>{getDescription(f)}</p>
           )}
           {!!f.tags?.length && <ProgressTags tags={f.tags} />}
         </StyledFeature>
