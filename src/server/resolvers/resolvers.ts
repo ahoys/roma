@@ -4,6 +4,7 @@ import { Application, Request } from 'express';
 import { validator, getIntFromObject } from '../utilities/utilities.resolvers';
 import { DataSource, FindManyOptions, FindOneOptions } from 'typeorm';
 import { User } from '../models/model.User';
+import { Roadmap } from '../models/model.Roadmap';
 
 interface ICreate<T> {
   endpoint: string;
@@ -231,3 +232,47 @@ export const commonDeleteResolver = <T>({
     }
   });
 };
+
+/**
+ * Endpoint for handling integrations.
+ */
+export const gitlabIntegrationResolver = <T>({
+  server,
+  Dto,
+  handleCreate,
+  options,
+}: ICreate<T>) =>
+  server.post(config.api + 'integrations/gitlab', async (req, res, next) => {
+    try {
+      const user = await User.findOneBy({ _id: (req.user as User)?._id });
+      if (!user?.admin) {
+        // Only admins can make changes.
+        return res.status(401).end();
+      }
+      if (options?.readRequestUserToBody) {
+        req.body = { ...req.body, user };
+      }
+      const roadmap = await Roadmap.findOne({
+        where: {
+          _id: getIntFromObject('roadmap', req.body),
+        },
+        select: ['gitlabAccessToken'],
+      });
+      if (!roadmap) {
+        return res.status(400).end();
+      }
+      const validationErrors = await validator(Dto, req.body);
+      if (validationErrors.length === 0) {
+        const created = await handleCreate(new Dto(req.body));
+        if (created) {
+          res.status(201).json(created);
+        } else {
+          res.status(500).end();
+        }
+      } else {
+        next(validationErrors);
+      }
+    } catch (error) {
+      next(error);
+    }
+  });

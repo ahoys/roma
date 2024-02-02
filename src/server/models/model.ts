@@ -56,3 +56,10 @@ export const defaultOauthColumn: ColumnOptions = {
   nullable: false,
   unique: true,
 };
+
+export const defaultKeyColumn: ColumnOptions = {
+  type: 'varchar',
+  length: 255,
+  nullable: true,
+  select: false,
+};

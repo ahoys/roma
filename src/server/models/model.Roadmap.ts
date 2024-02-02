@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany } from 'typeorm';
-import { Model, defaultNameColumn } from './model';
+import { Model, defaultKeyColumn, defaultNameColumn } from './model';
 import { Product } from './model.Product';
 import { Tag } from './model.Tag';
 import { Version } from './model.Version';
@@ -10,6 +10,9 @@ import { User } from './model.User';
 export class Roadmap extends Model implements RoadmapDTO {
   @Column(defaultNameColumn)
   name: string;
+
+  @Column(defaultKeyColumn)
+  gitlabAccessToken: string;
 
   @OneToMany(() => Version, (model) => model.roadmap)
   versions: Version[];
@@ -45,6 +48,9 @@ export class Roadmap extends Model implements RoadmapDTO {
   ): Promise<Roadmap> {
     if (typeof partial.name === 'string') {
       model.name = partial.name;
+    }
+    if (typeof partial.gitlabAccessToken === 'string') {
+      model.gitlabAccessToken = partial.gitlabAccessToken;
     }
     return await model.save();
   }

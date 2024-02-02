@@ -44,6 +44,7 @@ import { requirementResolvers } from './resolvers/resolvers.Requirement';
 import { requirementCommentResolvers } from './resolvers/resolvers.RequirementComment';
 import { assignmentResolvers } from './resolvers/resolvers.Assignment';
 import { assignmentCommentResolvers } from './resolvers/resolvers.AssignmentComment';
+import { gitLabResolvers } from './resolvers/resolvers.GitLab';
 import {
   cookieResolvers,
   defaultCookieOptions,
@@ -119,6 +120,9 @@ print(config);
       requirementCommentResolvers(app, ds);
       assignmentResolvers(app, ds);
       assignmentCommentResolvers(app, ds);
+      if (config.gitlab.url) {
+        gitLabResolvers(app);
+      }
       errorResolver(app); // Should come last.
       if (config.isDevelopment) {
         // await createMockupTables();

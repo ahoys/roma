@@ -8,6 +8,9 @@ export class Product extends Model implements ProductDTO {
   @Column(defaultNameColumn)
   name: string;
 
+  @Column({ type: 'int', nullable: true, unique: true})
+  gitlabId: number;
+
   @ManyToOne(() => Roadmap, (model) => model.products, {
     nullable: false,
     onDelete: 'CASCADE',
@@ -36,6 +39,9 @@ export class Product extends Model implements ProductDTO {
   ): Promise<Product> {
     if (typeof partial.name === 'string') {
       model.name = partial.name;
+    }
+    if (typeof partial.gitlabId === 'number') {
+      model.gitlabId = partial.gitlabId;
     }
     if (typeof partial.roadmapId === 'number') {
       model.roadmap = (await Roadmap.findOneBy({

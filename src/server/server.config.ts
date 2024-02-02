@@ -53,6 +53,11 @@ const production = {
     crtPath: process.env.SSL_CRTPATH,
     keyPath: process.env.SSL_KEYPATH,
   },
+  gitlab: {
+    // For example https://gitlab.product.com
+    url: process.env.GITLAB_URL || '',
+    romaUrl: process.env.GITLAB_ROMA_URL || '',
+  }
 };
 
 const development: typeof production = {
